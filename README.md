@@ -14,3 +14,9 @@ Installer la BD :
 	- Executer la commande -- php artisan migrate -- dans le dossier racine du projet 
 
 	Note : Ne pas toucher à la table migrations c'est une table qui permet à Lumen de vérifier les migrations qui ont déjà été faites.
+
+
+Update la BD : 
+	php artisan migrate:refresh --seed 
+	(dans le dossier du projet, pensez à creer votre .env si c'est pas déjà fait)
+	ATTENTION : LE REFRESH DELETE TOUTE LES DONNEES PRESENTE EN BD ET RECREE CELLES PAR DEFAUT
