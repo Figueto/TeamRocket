@@ -1,10 +1,12 @@
 <?php
 
+
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreationPays extends Migration
+class CreateUtilisateursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +15,15 @@ class CreationPays extends Migration
      */
     public function up()
     {
-
-        DB::beginTransaction();
-        Schema::create('Pays', function (Blueprint $table) {
-            $table->string('idPays',2);
-            $table->string('nom',64);
+        Schema::create('Utilisateurs', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('pseudo');
+            $table->string('mail');
+            $table->string('pass');
+            $table->smallInteger('idNiveau');
+            $table->boolean('actif');
             $table->timestamps();
-
-            $table->primary('idPays');
         });
-        DB::commit();
     }
 
     /**
@@ -32,9 +33,6 @@ class CreationPays extends Migration
      */
     public function down()
     {
-
-        DB::beginTransaction();
-        Schema::dropIfExists('Pays');
-        DB::commit();
+        Schema::dropIfExists('Utilisateurs');
     }
 }
