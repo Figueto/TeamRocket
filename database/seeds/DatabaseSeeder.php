@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
        $this->call(AjoutDefaultNiveauUtilisateurs::class);
        $this->call(AjoutDefaultOperation::class);
        $this->call(AjoutSuperAdmin::class);
+       $this->call(AjoutPays::class);
     }
 }
