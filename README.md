@@ -31,9 +31,7 @@ Pour le .env penser à remplir le APP_KEY avec un élement de 32 caractères sin
 
 
 ### Update la BD : 
-	```
 	php artisan migrate:refresh --seed 
-	```
-	(dans le dossier du projet, pensez à creer votre .env si c'est pas déjà fait)
+(dans le dossier du projet, pensez à creer votre .env si c'est pas déjà fait)
 #### ATTENTION : 
 LE REFRESH DELETE TOUTE LES DONNEES PRESENTE EN BD ET RECREE CELLES PAR DEFAUT
