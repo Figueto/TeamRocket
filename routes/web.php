@@ -19,26 +19,29 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+
+$lienAPI = "api/";
+
+/*________PAYS_________*/
+$router->get($lienAPI.'pays', 'PaysController@index');
+$router->get($lienAPI.'pays/{country_code}', ['as'   => 'pays',	'uses' => 'PaysController@getPays']);
+
+
+
+
+/*________USER_________*/
+
 //liste des users
-$router->get('/users', 'UtilisateurController@index');
+$router->get($lienAPI.'users', 'UtilisateurController@index');
 
 //affiche user spécifique
-$router->get('user/{id}',  [
-    'as'   => 'user',
-    'uses' => 'UtilisateurController@getUtilisateur'
-]);
+$router->get($lienAPI.'user/{id}',  ['as'   => 'user',	'uses' => 'UtilisateurController@getUtilisateur']);
 
 //ajouter user (rajoute un user dans la BDD, avec juste l'id pour l'instant)
-$router->post('/user', 'UtilisateurController@saveUtilisateur');
+$router->post($lienAPI.'user', 'UtilisateurController@saveUtilisateur');
 
 //mettre à jour user
-$router->put('/user/{id}', [
-     'as'   => 'upd-user',
-     'uses' => 'UtilisateurController@updateUtilisateur'
-]);
+$router->put($lienAPI.'user/{id}', ['as'   => 'upd-user',	'uses' => 'UtilisateurController@updateUtilisateur']);
 
 //supprimer user (suppr bien de la BDD)
-$router->delete('user/{id}', [
-     'as'   => 'del-user',
-     'uses' => 'UtilisateurController@deleteUtilisateur'
-     ]);
+$router->delete($lienAPI.'user/{id}', ['as'   => 'del-user',	'uses' => 'UtilisateurController@deleteUtilisateur']);
