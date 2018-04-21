@@ -2,6 +2,9 @@
 
 namespace App;
 use Illuminate\Database\Eloquent\Model;
+use App\Exceptions\InsuffisantDatasException;
+use App\Exceptions\InvalidDatasException;
+
 
 class Pays extends Model
 {
@@ -20,4 +23,16 @@ class Pays extends Model
      * @var array
      */
     protected $hidden = [];
+
+    /*
+    *   Vérifie les attribus entrées
+    *   @throws : InsuffisantDatasException - InvalidDatasException
+    */
+    public function hasRequiredAttribute(){
+        if(empty($this->attributes['idPays']) || empty($this->attributes['nom']))
+            throw new InsuffisantDatasException('idPays & nom needed');
+        
+        if(strlen($this->attributes['idPays']) !== 2)
+            throw new InvalidDatasException('idPays : 2 chars only');
+    }
 }

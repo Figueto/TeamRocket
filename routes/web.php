@@ -25,7 +25,9 @@ $lienAPI = "api/";
 /*________PAYS_________*/
 $router->get($lienAPI.'pays', 'PaysController@index');
 $router->get($lienAPI.'pays/{country_code}', ['as'   => 'pays',	'uses' => 'PaysController@getPays']);
-
+$router->post($lienAPI.'pays', 'PaysController@savePays');
+$router->put($lienAPI.'pays/{country_code}', ['as'   => 'upd-pays',	'uses' => 'PaysController@updatePays']);
+$router->delete($lienAPI.'pays/{country_code}', ['as'   => 'del-user',	'uses' => 'PaysController@deletePays']);
 
 
 

@@ -19,42 +19,40 @@ class PaysController extends Controller
         //
     }
 
-    //fetch tous les utilisateurs, marche
+    //fetch tous les pays, marche
     public function index() {
          $pays = Pays::all();
          return response()->json($pays);
     }
     
-    //va chercher l'utilisateur avec l'id correspondant, marche
+    //va chercher l'pays avec l'id correspondant, marche
     public function getPays($country_code) {
-         $utilisateur = Pays::find($country_code);
-         return response()->json($utilisateur);
+         $pays = Pays::findOrFail($country_code);
+         return response()->json($pays);
     }
 
-    // //crée un nouvel utilisateur
-    // public function saveUtilisateur(Request $request) {
-    //      $utilisateur = Utilisateur::create($request->all());
-    //      //hashage mdp
-    //      $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
-    //      return response()->json('created');
-    // }
+    //crée un nouvel pays
+    public function savePays(Request $request) {
+        var_dump($request->all());
+        $pays = new Pays($request->all());
+        $pays->hasRequiredAttribute(); //Throws exceptions if doesnt have needed attribute
+        $pays->save();
+        return response()->json('created');
+    }
 
-    // //permet de modifier les informations d'un utilisateur
-    // //fonctions différentes selon modif par admin ou user lambda ?
-    // public function updateUtilisateur(Request $request, $id) {
-    //      $utilisateur = Utilisateur::find($id);
-    //      $utilisateur->pseudo = $request->input('pseudo');
-    //      $utilisateur->mail = $request->input('mail');
-    //      $utilisateur->pass = $request->input('pass');
-    //      //hashage mdp
-    //      $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
-    //      $utilisateur->save();
-    //      return response()->json($utilisateur);
-    // }
 
-    // public function deleteUtilisateur($id) {
-    //      $utilisateur = Utilisateur::find($id);
-    //      $utilisateur->delete();
-    //      return response()->json('deleted');
-    // }
+    //permet de modifier les informations d'un pays
+    public function updatePays(Request $request, $country_code) {
+        $pays = pays::findOrFail($country_code);
+        $pays->nom = $request->input('nom');
+        $pays->hasRequiredAttribute();
+        $pays->save();
+        return response()->json($pays);
+    }
+
+    public function deletePays($country_code) {
+         $pays = pays::findOrFail($country_code);
+         $pays->delete();
+         return response()->json('deleted');
+    }
 }
