@@ -24,13 +24,13 @@ class PaysController extends Controller
     //fetch tous les pays, marche
     public function index() {
          $pays = Pays::all();
-         return response()->json($pays);
+         return response()->json($pays,200);
     }
     
     //va chercher l'pays avec l'id correspondant, marche
     public function getPays($country_code) {
         $pays = Pays::findOrFail($country_code);
-         return $pays;
+         return response()->json($pays,200);
     }
 
     //crée un nouvel pays
@@ -41,7 +41,7 @@ class PaysController extends Controller
             $pays = new Pays($request->all());
             $pays->save();
         }catch(QueryException $e ){
-            return ["info"=>"Duplicate key"];
+            return response()->json(["status"=>"Duplicate key"],409);
         }
         return $this->getPays($request->input("idPays"));
     }
@@ -54,12 +54,12 @@ class PaysController extends Controller
         $pays = pays::findOrFail($country_code);
         $pays->nom = $request->input('nom');
         $pays->save();
-        return $pays;
+        return response()->json($pays,200);
     }
 
     public function deletePays($country_code) {
          $pays = pays::findOrFail($country_code);
          $pays->delete();
-         return ['info'=>'Deleted'];
+         return response()->json(['status'=>'Deleted'],200);
     }
 }
