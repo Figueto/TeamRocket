@@ -43,7 +43,7 @@ class PaysController extends Controller
         }catch(QueryException $e ){
             return response()->json(["status"=>"Duplicate key"],409);
         }
-        return $this->getPays($request->input("idPays"));
+        return response()->json($this->getPays($request->input("idPays")));
     }
 
 
