@@ -10,6 +10,7 @@ class Pays extends Model
 {
     protected $table = 'pays';
     protected $primaryKey = 'idPays';
+    public $incrementing = false;       //Sinon return tjrs 0 en primary key
     /**
      * The attributes that are mass assignable.
      *
@@ -23,16 +24,4 @@ class Pays extends Model
      * @var array
      */
     protected $hidden = [];
-
-    /*
-    *   Vérifie les attribus entrées
-    *   @throws : InsuffisantDatasException - InvalidDatasException
-    */
-    public function hasRequiredAttribute(){
-        if(empty($this->attributes['idPays']) || empty($this->attributes['nom']))
-            throw new InsuffisantDatasException('idPays & nom needed');
-        
-        if(strlen($this->attributes['idPays']) !== 2)
-            throw new InvalidDatasException('idPays : 2 chars only');
-    }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Pays;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
+use Auth;
 
 
 class PaysController extends Controller
@@ -15,7 +17,7 @@ class PaysController extends Controller
      * @return void
      */
     public function __construct()
-    {
+    {    
         //
     }
 
@@ -27,32 +29,37 @@ class PaysController extends Controller
     
     //va chercher l'pays avec l'id correspondant, marche
     public function getPays($country_code) {
-         $pays = Pays::findOrFail($country_code);
-         return response()->json($pays);
+        $pays = Pays::findOrFail($country_code);
+         return $pays;
     }
 
     //crée un nouvel pays
     public function savePays(Request $request) {
-        var_dump($request->all());
-        $pays = new Pays($request->all());
-        $pays->hasRequiredAttribute(); //Throws exceptions if doesnt have needed attribute
-        $pays->save();
-        return response()->json('created');
+        $this->validate($request,["idPays"=>'required|alpha|size:2']);
+        $this->validate($request,["nom"=>'required']);
+        try{
+            $pays = new Pays($request->all());
+            $pays->save();
+        }catch(QueryException $e ){
+            return ["info"=>"Duplicate key"];
+        }
+        return $this->getPays($request->input("idPays"));
     }
 
 
     //permet de modifier les informations d'un pays
     public function updatePays(Request $request, $country_code) {
+        $this->validate($request,["nom"=>'required']);
+        
         $pays = pays::findOrFail($country_code);
         $pays->nom = $request->input('nom');
-        $pays->hasRequiredAttribute();
         $pays->save();
-        return response()->json($pays);
+        return $pays;
     }
 
     public function deletePays($country_code) {
          $pays = pays::findOrFail($country_code);
          $pays->delete();
-         return response()->json('deleted');
+         return ['info'=>'Deleted'];
     }
 }
