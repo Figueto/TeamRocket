@@ -18,8 +18,8 @@ class CastController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth',['except' => ['index','getCast']]););
-        $this->middleware('admin',['except' => ['index','getCast']]););
+        $this->middleware('auth',['except' => ['index','getCast']]);
+        $this->middleware('admin',['except' => ['index','getCast']]);
     }
 
     //fetch tous les cast
