@@ -75,7 +75,7 @@ class AuthController extends Controller
         if (Hash::check($this->request->input('pass'), $user->pass)) {
             return response()->json([
                 'token' => $this->jwt($user),
-                'user' => $user;
+                'user' => $user
             ], 200);
         }
 
