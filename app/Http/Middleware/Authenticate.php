@@ -59,7 +59,11 @@ class Authenticate
                 'error' => 'An error while decoding token.'
             ], 400);
         }
-        $user = Utilisateur::find($credentials->sub);
+        if(!$user = Utilisateur::where('actif','=',1)->find($credentials->sub)){
+            return response()->json([
+                'error' => 'Your account was disabled by an admin.'
+            ], 401); 
+        }
 
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;

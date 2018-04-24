@@ -38,15 +38,13 @@ class AuthController extends Controller
      * @return string
      */
     protected function jwt(Utilisateur $user) {
+        $exp_time = 60*60*48; //48h
         $payload = [
-            'iss' => "lumen-jwt", // Issuer of the token
-            'sub' => $user->id, // Subject of the token
-            'iat' => time(), // Time when JWT was issued. 
-            'exp' => time() + 60*60 // Expiration time
+            'iss' => "lumen-jwt",
+            'sub' => $user->id, // Subject
+            'iat' => time(), // Time created 
+            'exp' => time() + $exp_time // Expiration
         ];
-        
-        // As you can see we are passing `JWT_SECRET` as the second parameter that will 
-        // be used to decode the token in the future.
         return JWT::encode($payload, env('JWT_SECRET'));
     } 
 
@@ -63,22 +61,21 @@ class AuthController extends Controller
         ]);
 
         // Find the user by email
-        $user = Utilisateur::where('pseudo', $this->request->input('pseudo'))->first();
+        $user = Utilisateur::where('pseudo', $this->request->input('pseudo'))
+        ->where('actif', '=', '1')
+        ->first();
 
         if (!$user) {
-            // You wil probably have some sort of helpers or whatever
-            // to make sure that you have the same response format for
-            // differents kind of responses. But let's return the 
-            // below respose for now.
             return response()->json([
-                'error' => 'Email does not exist.'
+                'error' => 'This user does not exist or was disabled by an admin.'
             ], 400);
         }
 
         // Verify the password and generate the token
         if (Hash::check($this->request->input('pass'), $user->pass)) {
             return response()->json([
-                'token' => $this->jwt($user)
+                'token' => $this->jwt($user),
+                'user' => $user;
             ], 200);
         }
 
