@@ -55,3 +55,19 @@ $router->delete($lienAPI.'cast/{id}', [
      'as'   => 'del-cast',
      'uses' => 'CastController@deleteCast'
      ]);
+
+/*________NIVEAUUTILISATEUR_________*/
+
+$router->get($lienAPI.'niveaux', 'NiveauUtilisateurController@index');
+$router->get($lienAPI.'niveau/{id}',  ['as'   => 'niveau',	'uses' => 'NiveauUtilisateurController@getNiveau']);
+$router->post($lienAPI.'niveau', 'NiveauUtilisateurController@saveNiveau');
+$router->put($lienAPI.'niveau/{id}', ['as'   => 'upd-niveau',	'uses' => 'NiveauUtilisateurController@updateNiveau']);
+$router->delete($lienAPI.'niveau/{id}', ['as'   => 'del-niveau',	'uses' => 'NiveauUtilisateurController@deleteNiveau']);
+
+/*________ENUMOPERATION_________*/
+
+$router->get($lienAPI.'operations', 'EnumOperationController@index');
+$router->get($lienAPI.'operation/{id}',  ['as'   => 'operation',	'uses' => 'EnumOperationController@getOperation']);
+$router->post($lienAPI.'operation', 'EnumOperationController@saveOperation');
+$router->put($lienAPI.'operation/{id}', ['as'   => 'upd-operation',	'uses' => 'EnumOperationController@updateOperation']);
+$router->delete($lienAPI.'operation/{id}', ['as'   => 'del-operation',	'uses' => 'EnumOperationController@deleteOperation']);
