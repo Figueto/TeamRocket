@@ -71,3 +71,11 @@ $router->get($lienAPI.'operation/{id}',  ['as'   => 'operation',	'uses' => 'Enum
 $router->post($lienAPI.'operation', 'EnumOperationController@saveOperation');
 $router->put($lienAPI.'operation/{id}', ['as'   => 'upd-operation',	'uses' => 'EnumOperationController@updateOperation']);
 $router->delete($lienAPI.'operation/{id}', ['as'   => 'del-operation',	'uses' => 'EnumOperationController@deleteOperation']);
+
+/*________LOG_________*/
+
+$router->get($lienAPI.'logs', 'LogController@index');
+$router->get($lienAPI.'log/{id}',  ['as'   => 'log',	'uses' => 'LogController@getLog']);
+$router->post($lienAPI.'log', 'LogController@saveLog');
+$router->put($lienAPI.'log/{id}', ['as'   => 'upd-log',	'uses' => 'LogController@updateLog']);
+$router->delete($lienAPI.'log/{id}', ['as'   => 'del-log',	'uses' => 'LogController@deleteLog']);
