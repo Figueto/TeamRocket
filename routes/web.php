@@ -17,6 +17,14 @@ $router->get('/', function () use ($router) {
 
 $lienAPI = "api/";
 
+
+/*________AUTH_________*/
+$router->post($lienAPI.'login', 'AuthController@authenticate');
+$router->get($lienAPI.'logout', 'AuthController@logout');
+
+
+
+
 /*________PAYS_________*/
 
 $router->get($lienAPI.'pays', 'PaysController@index');
