@@ -20,7 +20,6 @@ $lienAPI = "api/";
 
 /*________AUTH_________*/
 $router->post($lienAPI.'login', 'AuthController@authenticate');
-$router->get($lienAPI.'logout', 'AuthController@logout');
 
 
 
@@ -42,7 +41,6 @@ $router->put($lienAPI.'user/{id}', ['as'   => 'upd-user',	'uses' => 'Utilisateur
 $router->delete($lienAPI.'user/{id}', ['as'   => 'del-user',	'uses' => 'UtilisateurController@deleteUtilisateur']);
 
  /*________CAST_________*/
-
 $router->get($lienAPI.'casts', 'CastController@index');
 $router->get($lienAPI.'cast/{id}',  [
     'as'   => 'cast',
