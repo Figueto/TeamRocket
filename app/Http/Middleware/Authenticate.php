@@ -1,5 +1,10 @@
 <?php
 
+/*
+*   Check if user is authentificated
+*/
+
+
 namespace App\Http\Middleware;
 use Auth;
 use Closure;
@@ -67,7 +72,6 @@ class Authenticate
 
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;
-
         return $next($request);
     }
 }

@@ -26,4 +26,5 @@ class Utilisateur extends Model implements AuthenticatableContract, Authorizable
      * @var array
      */
     protected $hidden = ['idNiveau', 'actif', 'pass'];
+
 }
