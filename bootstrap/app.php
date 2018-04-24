@@ -66,6 +66,12 @@ $app->singleton(
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
+$app->routeMiddleware([
+    'auth:superadmin' => App\Http\Middleware\SuperAdminMiddleware::class,
+]);
+$app->routeMiddleware([
+    'auth:admin' => App\Http\Middleware\AdminMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------

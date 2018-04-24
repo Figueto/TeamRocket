@@ -41,7 +41,7 @@ class AuthController extends Controller
         $exp_time = 60*60*48; //48h
         $payload = [
             'iss' => "lumen-jwt",
-            'sub' => $user->id, // Subject
+            'sub' => $user->idUtilisateur, // Subject
             'iat' => time(), // Time created 
             'exp' => time() + $exp_time // Expiration
         ];
