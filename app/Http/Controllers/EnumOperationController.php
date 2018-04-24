@@ -18,7 +18,8 @@ class EnumOperationController extends Controller
      */
     public function __construct()
     {
-        //
+        $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     //fetch toutes les opérations

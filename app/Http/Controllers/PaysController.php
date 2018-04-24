@@ -17,8 +17,9 @@ class PaysController extends Controller
      * @return void
      */
     public function __construct()
-    {    
-        //
+    {
+         $this->middleware('auth',['except' => ['index','getPays']]);
+        $this->middleware('admin',['except' => ['index','getPays']]);
     }
 
     //fetch tous les pays, marche
@@ -26,7 +27,7 @@ class PaysController extends Controller
          $pays = Pays::all();
          return response()->json($pays,200);
     }
-    
+
     //va chercher l'pays avec l'id correspondant, marche
     public function getPays($country_code) {
         $pays = Pays::findOrFail($country_code);
@@ -50,7 +51,7 @@ class PaysController extends Controller
     //permet de modifier les informations d'un pays
     public function updatePays(Request $request, $country_code) {
         $this->validate($request,["nom"=>'required']);
-        
+
         $pays = pays::findOrFail($country_code);
         $pays->nom = $request->input('nom');
         $pays->save();
