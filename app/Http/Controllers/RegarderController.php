@@ -41,7 +41,7 @@ class RegarderController extends Controller
 
     //cree un nouvel avis
     public function saveAvis(Request $request) {
-         $this->validate($request, ["idUtilisateur" => 'required', "idOeuvre" => 'required', "dateVisionnage" => 'required']);
+         $this->validate($request, ["idUtilisateur" => 'required', "idOeuvre" => 'required', "dateVisionnage" => 'required|date']);
          $avis = Regarder::create($request->all());
          $avis->save();
          return response()->json($avis);
@@ -49,7 +49,7 @@ class RegarderController extends Controller
 
     //permet de modifier les informations d'un avis
     public function updateAvis(Request $request, $idUtilisateur, $idOeuvre) {
-          $this->validate($request, ["dateVisionnage" => 'required']);
+          $this->validate($request, ["dateVisionnage" => 'required|date']);
           DB::table('regarder')
          ->where([ ['idUtilisateur', $idUtilisateur], [ 'idOeuvre', $idOeuvre] ])
          ->update(['dateVisionnage' =>$request->dateVisionnage, 'note' => $request->note, 'avis' => $request->avis]);
