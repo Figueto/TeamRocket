@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use App\Utilisateur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -41,7 +41,7 @@ class UtilisateurController extends Controller
          $utilisateur->idNiveau = 1;
          $utilisateur->actif = 1;
            //hashage mdp
-           $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
+           $utilisateur->pass = Hash::make($utilisateur->pass);
            $utilisateur->save();
          return response()->json($utilisateur, 200);
     }
@@ -54,7 +54,7 @@ class UtilisateurController extends Controller
          $utilisateur->mail = $request->input('mail');
          $utilisateur->pass = $request->input('pass');
          //hashage mdp
-         $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
+         $utilisateur->pass = Hash::make($utilisateur->pass);
          $utilisateur->save();
          return response()->json($utilisateur, 200);
     }
