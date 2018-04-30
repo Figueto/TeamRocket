@@ -79,3 +79,12 @@ $router->get($lienAPI.'log/{id}',  ['as'   => 'log',	'uses' => 'LogController@ge
 $router->post($lienAPI.'log', 'LogController@saveLog');
 $router->put($lienAPI.'log/{id}', ['as'   => 'upd-log',	'uses' => 'LogController@updateLog']);
 $router->delete($lienAPI.'log/{id}', ['as'   => 'del-log',	'uses' => 'LogController@deleteLog']);
+
+/*________REGARDER_________*/
+
+$router->get($lienAPI.'avis', 'RegarderController@index');
+$router->get($lienAPI.'avis/{idUtilisateur}-{idOeuvre}',  ['as'   => 'avis',	'uses' => 'RegarderController@getAvis']);
+$router->get($lienAPI.'historique/{idUtilisateur}', 'RegarderController@getHistorique');
+$router->post($lienAPI.'avis', 'RegarderController@saveAvis');
+$router->put($lienAPI.'avis/{idUtilisateur}-{idOeuvre}', ['as'   => 'upd-avis',	'uses' => 'RegarderController@updateAvis']);
+$router->delete($lienAPI.'avis/{idUtilisateur}-{idOeuvre}', ['as'   => 'del-avis',	'uses' => 'RegarderController@deleteAvis']);
