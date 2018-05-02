@@ -21,8 +21,8 @@ class OeuvreController extends Controller
      */
     public function __construct()
     {
-         //$this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
-         //$this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
+         $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
+         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
     }
 
     //fetch toutes les oeuvres
@@ -31,7 +31,7 @@ class OeuvreController extends Controller
          return response()->json($oeuvres, 200);
     }
 
-    //va chercher l'oeuvre + pays d'origine + genre + acteurs + real avec l'id correspondant. Trouver un moyen de tout mettre dans le meme objet
+    //va chercher l'oeuvre + pays d'origine + genre avec l'id correspondant. Trouver un moyen de tout mettre dans le meme objet
     public function getOeuvre($id) {
          $oeuvre = Oeuvre::findOrFail($id);
          $genre = DB::select("SELECT g.nom as genreFilm FROM appartenir a, genre g WHERE a.idOeuvre = $id AND g.idGenre = a.idGenre");
@@ -47,30 +47,31 @@ class OeuvreController extends Controller
          return response()->json($vues, 200);
     }
 
-    //crée une nouvelle oeuvre et les lignes correspondantes dans les tables d'union Appartenir, Origine, Jouer, Realiser
+    //crée une nouvelle oeuvre et les lignes correspondantes dans les tables d'union Appartenir et Origine
     public function saveOeuvre(Request $request) {
           $this->validate($request, ["titre" => 'required', "slug" => 'required|unique:oeuvre']);
          $oeuvre = Oeuvre::create($request->all());
          $oeuvre->save();
 
-         //marche pas : Object of class Illuminate\Database\Query\Builder could not be converted to string
-         /*var_dump($request->input('genre'));
-         if( null !== $request->input('genre')) {
-             $nomGenre = $request->input('genre'); //
+         //cree entrée dans Appartenir
+         if($request->has('genre')) {
+             $nomGenre = $request->input('genre');
              $idGenre = DB::table('genre')
-             ->select('idGenre')
-             ->where('nom', $nomGenre);
+             ->where('nom', $nomGenre)
+             ->value('idGenre');
              DB::table('appartenir')
              ->insert(['idGenre' => $idGenre, 'idOeuvre' => $oeuvre->idOeuvre]);
         }
-         if($request->input('pays') != null) {
+
+        //crée entrée dans Origine
+         if($request->has('pays')) {
               $nomPays = $request->input('pays');
               $idPays = DB::table('pays')
-             ->select('idPays')
-             ->where('nom', $nomPays);
-              DB::table('origine')
+             ->where('nom', $nomPays)
+             ->value('idPays');
+             DB::table('origine')
              ->insert(['idPays' => $idPays, 'idOeuvre' => $oeuvre->idOeuvre]);
-        }*/
+        }
          return response()->json($oeuvre, 200);
     }
 
@@ -88,13 +89,50 @@ class OeuvreController extends Controller
          $oeuvre->saison = $request->input('saison');
          $oeuvre->numEpisode = $request->input('numEpisode');
          $oeuvre->idSerie = $request->input('idSerie');
-         $oeuvre->save();
+        // $oeuvre->save();
+
+         if($request->has('genre')) {
+              $nomGenre = $request->input('genre');
+              $idGenre = DB::table('genre')
+              ->where('nom', $nomGenre)
+              ->value('idGenre');
+              DB::table('appartenir')
+              ->where('idOeuvre', $id)
+              ->update(['idGenre' => $idGenre ]);
+         }
+
+         if($request->has('pays')) {
+              $nomPays = $request->input('pays');
+              $idPays = DB::table('pays')
+              ->select('idPays')
+              ->where('nom', $nomPays)
+              ->value('idPays');
+              DB::table('origine')
+              ->where('idOeuvre', $id)
+              ->update(['idPays' => $idPays]);
+         }
          return response()->json($oeuvre, 200);
     }
 
     public function deleteOeuvre($id) {
          $oeuvre = Oeuvre::findOrFail($id);
          $oeuvre->delete();
+  //suppr entrée dans Appartenir
+         $rowAppExist = DB::table('appartenir')
+         ->where('idOeuvre', $id)->exists();
+         if($rowAppExist == true) {
+              DB::table('appartenir')
+              ->where('idOeuvre', $id)
+              ->delete();
+        }
+  //suppr entrée dans Origine
+        $rowOriginExist = DB::table('origine')
+        ->where('idOeuvre', $id)->exists();
+        if($rowOriginExist == true) {
+            DB::table('origine')
+            ->where('idOeuvre', $id)
+            ->delete();
+       }
          return response()->json(['status' => 'Deleted'], 200);
     }
 }
