@@ -88,3 +88,28 @@ $router->get($lienAPI.'historique/{idUtilisateur}', 'RegarderController@getHisto
 $router->post($lienAPI.'avis', 'RegarderController@saveAvis');
 $router->put($lienAPI.'avis/{idUtilisateur}-{idOeuvre}', ['as'   => 'upd-avis',	'uses' => 'RegarderController@updateAvis']);
 $router->delete($lienAPI.'avis/{idUtilisateur}-{idOeuvre}', ['as'   => 'del-avis',	'uses' => 'RegarderController@deleteAvis']);
+
+/*________OEUVRE_________*/
+
+$router->get($lienAPI.'oeuvres', 'OeuvreController@index');
+$router->get($lienAPI.'oeuvre/{id}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@getOeuvre']);
+$router->get($lienAPI.'oeuvre/{id}/vues',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@nbreVues']);
+$router->post($lienAPI.'oeuvre', 'OeuvreController@saveOeuvre');
+$router->put($lienAPI.'oeuvre/{id}', ['as'   => 'upd-oeuvre',	'uses' => 'OeuvreController@updateOeuvre']);
+$router->delete($lienAPI.'oeuvre/{id}', ['as'   => 'del-oeuvre',	'uses' => 'OeuvreController@deleteOeuvre']);
+
+/*________SERIE_________*/
+
+$router->get($lienAPI.'series', 'SerieController@index');
+$router->get($lienAPI.'serie/{id}',  ['as'   => 'serie',	'uses' => 'SerieController@getSerie']);
+$router->post($lienAPI.'serie', 'SerieController@saveSerie');
+$router->put($lienAPI.'serie/{id}', ['as'   => 'upd-serie',	'uses' => 'SerieController@updateSerie']);
+$router->delete($lienAPI.'serie/{id}', ['as'   => 'del-serie',	'uses' => 'SerieController@deleteSerie']);
+
+/*________GENRE_________*/
+
+$router->get($lienAPI.'genres', 'GenreController@index');
+$router->get($lienAPI.'genre/{id}',  ['as'   => 'genre',	'uses' => 'GenreController@getGenre']);
+$router->post($lienAPI.'genre', 'GenreController@saveGenre');
+$router->put($lienAPI.'genre/{id}', ['as'   => 'upd-genre',	'uses' => 'GenreController@updateGenre']);
+$router->delete($lienAPI.'genre/{id}', ['as'   => 'del-genre',	'uses' => 'GenreController@deleteGenre']);

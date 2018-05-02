@@ -17,8 +17,8 @@ class RegarderController extends Controller
      */
     public function __construct()
     {
-         $this->middleware('auth', ['except' => ['index','getAvis', 'getHistorique']]);
-        $this->middleware('admin', ['except' => ['index','getAvis', 'getHistorique', 'updateAvis', 'deleteAvis', 'saveAvis']]);
+         //$this->middleware('auth', ['except' => ['index','getAvis', 'getHistorique']]);
+       // $this->middleware('admin', ['except' => ['index','getAvis', 'getHistorique', 'updateAvis', 'deleteAvis', 'saveAvis']]);
     }
 
     //affiche tous les avis
@@ -48,11 +48,23 @@ class RegarderController extends Controller
     }
 
     //permet de modifier les informations d'un avis
+    //marche que quand on met une note et un avis. Sinon :
+    //FatalThrowableError : Call to a member function parameter() on array
     public function updateAvis(Request $request, $idUtilisateur, $idOeuvre) {
           $this->validate($request, ["dateVisionnage" => 'required|date']);
           DB::table('regarder')
-         ->where([ ['idUtilisateur', $idUtilisateur], [ 'idOeuvre', $idOeuvre] ])
-         ->update(['dateVisionnage' =>$request->dateVisionnage, 'note' => $request->note, 'avis' => $request->avis]);
+          ->where([ ['idUtilisateur', $idUtilisateur], ['idOeuvre', $idOeuvre] ])
+          ->update(['dateVisionnage' => $request->dateVisionnage]);
+          if($request->note != null) { //bug si on a pas mis de note
+               DB::table('regarder')
+               ->where([ ['idUtilisateur', $idUtilisateur], ['idOeuvre', $idOeuvre] ])
+               ->update(['note' => $request->note]);
+          }
+          if($request->avis !== null) {//bug si on a pas mis d'avis
+               DB::table('regarder')
+               ->where([ ['idUtilisateur', $idUtilisateur], ['idOeuvre', $idOeuvre] ])
+               ->update(['avis' => $request->avis]);
+          }
           return response()->json('updated');
     }
 
