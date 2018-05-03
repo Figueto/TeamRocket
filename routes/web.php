@@ -17,13 +17,6 @@ $router->get('/', function () use ($router) {
 
 $lienAPI = "api/";
 
-
-/*________AUTH_________*/
-$router->post($lienAPI.'login', 'AuthController@authenticate');
-
-
-
-
 /*________PAYS_________*/
 
 $router->get($lienAPI.'pays', 'PaysController@index');
@@ -41,6 +34,7 @@ $router->put($lienAPI.'user/{id}', ['as'   => 'upd-user',	'uses' => 'Utilisateur
 $router->delete($lienAPI.'user/{id}', ['as'   => 'del-user',	'uses' => 'UtilisateurController@deleteUtilisateur']);
 
  /*________CAST_________*/
+
 $router->get($lienAPI.'casts', 'CastController@index');
 $router->get($lienAPI.'cast/{id}',  [
     'as'   => 'cast',
@@ -56,13 +50,13 @@ $router->delete($lienAPI.'cast/{id}', [
      'uses' => 'CastController@deleteCast'
      ]);
 
-/*________NIVEAUUTILISATEUR_________*/
+ /*________NIVEAUUTILISATEUR_________*/
 
-$router->get($lienAPI.'niveaux', 'NiveauUtilisateurController@index');
-$router->get($lienAPI.'niveau/{id}',  ['as'   => 'niveau',	'uses' => 'NiveauUtilisateurController@getNiveau']);
-$router->post($lienAPI.'niveau', 'NiveauUtilisateurController@saveNiveau');
-$router->put($lienAPI.'niveau/{id}', ['as'   => 'upd-niveau',	'uses' => 'NiveauUtilisateurController@updateNiveau']);
-$router->delete($lienAPI.'niveau/{id}', ['as'   => 'del-niveau',	'uses' => 'NiveauUtilisateurController@deleteNiveau']);
+     $router->get($lienAPI.'niveaux', 'NiveauUtilisateurController@index');
+     $router->get($lienAPI.'niveau/{id}',  ['as'   => 'niveau',	'uses' => 'NiveauUtilisateurController@getNiveau']);
+     $router->post($lienAPI.'niveau', 'NiveauUtilisateurController@saveNiveau');
+     $router->put($lienAPI.'niveau/{id}', ['as'   => 'upd-niveau',	'uses' => 'NiveauUtilisateurController@updateNiveau']);
+     $router->delete($lienAPI.'niveau/{id}', ['as'   => 'del-niveau',	'uses' => 'NiveauUtilisateurController@deleteNiveau']);
 
 /*________ENUMOPERATION_________*/
 
@@ -96,6 +90,10 @@ $router->get($lienAPI.'oeuvre/{id}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreCont
 $router->get($lienAPI.'oeuvre/{id}/vues',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@nbreVues']);
 $router->post($lienAPI.'oeuvre', 'OeuvreController@saveOeuvre');
 $router->put($lienAPI.'oeuvre/{id}', ['as'   => 'upd-oeuvre',	'uses' => 'OeuvreController@updateOeuvre']);
+$router->put($lienAPI.'oeuvre/{id}/genre', ['as'   => 'upd-oeuvre-G',	'uses' => 'OeuvreController@addGenre']);
+$router->put($lienAPI.'oeuvre/{id}/pays', ['as'   => 'upd-oeuvre-P',	'uses' => 'OeuvreController@addPays']);
+$router->put($lienAPI.'oeuvre/{id}/acteur', ['as'   => 'upd-oeuvre-A',	'uses' => 'OeuvreController@addActeur']);
+$router->put($lienAPI.'oeuvre/{id}/real', ['as'   => 'upd-oeuvre-R',	'uses' => 'OeuvreController@addReal']);
 $router->delete($lienAPI.'oeuvre/{id}', ['as'   => 'del-oeuvre',	'uses' => 'OeuvreController@deleteOeuvre']);
 
 /*________SERIE_________*/
