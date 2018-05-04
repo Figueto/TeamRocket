@@ -31,6 +31,12 @@ class OeuvreController extends Controller
 
     //renvoie le nombre de fois que cette oeuvre a été vue
     public function nbreVues($id) {
+         $oeuvreExists = DB::table('oeuvre')
+         ->where('idOeuvre', $id)
+         ->exists();
+         if($oeuvreExists == false) {
+              abort(500, "Oeuvre doesn't exist.");
+         }
          $vues = DB::select("SELECT COUNT(idOeuvre) FROM regarder WHERE idOeuvre = $id");
          return $vues;
     }
