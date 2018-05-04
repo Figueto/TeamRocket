@@ -19,14 +19,20 @@ class OeuvreController extends Controller
      */
     public function __construct()
     {
-         $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
-         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
+         //$this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
+         //$this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
     }
 
     //fetch toutes les oeuvres
     public function index() {
          $oeuvres = Oeuvre::all();
          return response()->json($oeuvres, 200);
+    }
+
+    //renvoie le nombre de fois que cette oeuvre a été vue
+    public function nbreVues($id) {
+         $vues = DB::select("SELECT COUNT(idOeuvre) FROM regarder WHERE idOeuvre = $id");
+         return $vues;
     }
 
     //va chercher l'oeuvre + pays d'origine + genre + acteurs + réals avec l'id correspondant
@@ -50,6 +56,9 @@ class OeuvreController extends Controller
          ->where('realiser.idOeuvre', $id)
          ->select('cast.nom', 'cast.prenom')
          ->get();
+         $vues = DB::table('regarder')
+         ->where('idOeuvre', $id)
+         ->count();
 
          return response()->json([
               'Id' => $oeuvre->idOeuvre,
@@ -66,14 +75,9 @@ class OeuvreController extends Controller
               'Genres' => $genres,
               "Pays d'origine" =>$pays,
               'Acteurs' =>$acteurs,
-              'Réalisateurs' => $real
+              'Réalisateurs' => $real,
+              'Nombre de vues' => $vues
          ], 200);
-    }
-
-    //renvoie le nombre de fois que cette oeuvre a été vue
-    public function nbreVues($id) {
-         $vues = DB::select("SELECT COUNT(idOeuvre) as nbrevues FROM regarder WHERE idOeuvre = $id");
-         return response()->json($vues, 200);
     }
 
     //crée une nouvelle oeuvre et les lignes correspondantes dans les tables d'union Appartenir et Origine

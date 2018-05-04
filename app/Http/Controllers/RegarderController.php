@@ -18,7 +18,7 @@ class RegarderController extends Controller
     public function __construct()
     {
          $this->middleware('auth', ['except' => ['index','getAvis', 'getHistorique']]);
-       $this->middleware('admin', ['except' => ['index','getAvis', 'getHistorique', 'updateAvis', 'deleteAvis', 'saveAvis']]);
+         $this->middleware('admin', ['except' => ['index','getAvis', 'getHistorique', 'updateAvis', 'deleteAvis', 'saveAvis']]);
     }
 
     //affiche tous les avis
@@ -29,6 +29,15 @@ class RegarderController extends Controller
 
     //va chercher l'avis avec l'idUtilisateur et l'idOeuvre correspondants
     public function getAvis($idUtilisateur, $idOeuvre) {
+         $userExists = DB::table('utilisateur')
+         ->where('idUtilisateur', $idUtilisateur)
+         ->exists();
+         $oeuvreExists = DB::table('oeuvre')
+         ->where('idOeuvre', $idOeuvre)
+         ->exists();
+         if($userExists == false || $oeuvreExists == false) {
+              abort(500, "User or oeuvre doesn't exist.");
+         }
          $avis = DB::select("SELECT * FROM regarder WHERE idUtilisateur = $idUtilisateur AND idOeuvre = $idOeuvre");
          return response()->json($avis);
     }
@@ -42,6 +51,15 @@ class RegarderController extends Controller
     //cree un nouvel avis
     public function saveAvis(Request $request) {
          $this->validate($request, ["idUtilisateur" => 'required', "idOeuvre" => 'required', "dateVisionnage" => 'required|date']);
+         $userExists = DB::table('utilisateur')
+         ->where('idUtilisateur', $request->input('idUtilisateur'))
+         ->exists();
+         $oeuvreExists = DB::table('oeuvre')
+         ->where('idOeuvre', $request->input('idOeuvre'))
+         ->exists();
+         if($userExists == false || $oeuvreExists == false) {
+              abort(500, "User or oeuvre doesn't exist.");
+         }
          $avis = Regarder::create($request->all());
          $avis->save();
          return response()->json($avis);
@@ -49,6 +67,15 @@ class RegarderController extends Controller
 
     //permet de modifier les informations d'un avis
     public function updateAvis(Request $request, $idUtilisateur, $idOeuvre) {
+         $userExists = DB::table('utilisateur')
+         ->where('idUtilisateur', $idUtilisateur)
+         ->exists();
+         $oeuvreExists = DB::table('oeuvre')
+         ->where('idOeuvre', $idOeuvre)
+         ->exists();
+         if($userExists == false || $oeuvreExists == false) {
+              abort(500, "User or oeuvre doesn't exist.");
+         }
          if($request->has('dateVisionnage')) {
                $this->validate($request, ["dateVisionnage" => 'required|date']);
                DB::table('regarder')
@@ -70,6 +97,15 @@ class RegarderController extends Controller
 
     //supprime un avis
     public function deleteAvis($idUtilisateur, $idOeuvre) {
+         $userExists = DB::table('utilisateur')
+         ->where('idUtilisateur', $idUtilisateur)
+         ->exists();
+         $oeuvreExists = DB::table('oeuvre')
+         ->where('idOeuvre', $idOeuvre)
+         ->exists();
+         if($userExists == false || $oeuvreExists == false) {
+              abort(500, "User or oeuvre doesn't exist.");
+         }
          DB::delete("DELETE FROM regarder WHERE idUtilisateur = $idUtilisateur AND idOeuvre = $idOeuvre");
          return response()->json('deleted');
     }
