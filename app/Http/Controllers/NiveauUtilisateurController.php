@@ -25,12 +25,12 @@ class NiveauUtilisateurController extends Controller
     //fetch tous les niveaux
     public function index() {
          $niveaux = NiveauUtilisateur::all();
-         return response()->json($niveaux, 200);
+         return response()->json(["liste_niveau"=>$niveaux], 200);
     }
     //va chercher le niveau avec l'id correspondant
     public function getNiveau($id) {
          $niveau = NiveauUtilisateur::findOrFail($id);
-         return response()->json($niveau, 200);
+         return response()->json(['niveau'=>$niveau], 200);
     }
 
     //crée un nouveau niveau

@@ -25,7 +25,7 @@ class LogController extends Controller
     //fetch tous les logs
     public function index() {
          $log = Log::all();
-         return response()->json($log, 200);
+         return response()->json(["liste_log"=>$log], 200);
     }
     //va chercher le log avec l'id correspondant
     public function getLog($id) {
@@ -38,7 +38,7 @@ class LogController extends Controller
          $this->validate($request, ["idAdministrateur" => 'required']);
          $log = Log::create($request->all());
          $log->save();
-         return response()->json($log, 200);
+         return response()->json(["log"=>$log], 200);
     }
 
     //permet de modifier les informations d'une opération
