@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use App\Utilisateur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,12 +26,12 @@ class UtilisateurController extends Controller
     //fetch tous les utilisateurs
     public function index() {
          $utilisateurs = Utilisateur::all();
-         return response()->json(["liste_utilisateur" => $utilisateurs], 200);
+         return response()->json($utilisateurs, 200);
     }
     //va chercher l'utilisateur avec l'id correspondant
     public function getUtilisateur($id) {
          $utilisateur = Utilisateur::findOrFail($id);
-         return response()->json(["utilisateur" => $utilisateur], 200);
+         return response()->json($utilisateur, 200);
     }
 
     //crée un nouvel utilisateur
@@ -41,9 +41,9 @@ class UtilisateurController extends Controller
          $utilisateur->idNiveau = 1;
          $utilisateur->actif = 1;
            //hashage mdp
-           $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
+           $utilisateur->pass = Hash::make($utilisateur->pass);
            $utilisateur->save();
-         return response()->json(["utilisateur"=>$utilisateur], 200);
+         return response()->json($utilisateur, 200);
     }
 
     //permet de modifier les informations d'un utilisateur
@@ -54,9 +54,9 @@ class UtilisateurController extends Controller
          $utilisateur->mail = $request->input('mail');
          $utilisateur->pass = $request->input('pass');
          //hashage mdp
-         $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
+         $utilisateur->pass = Hash::make($utilisateur->pass);
          $utilisateur->save();
-         return response()->json(["utilisateur"=>$utilisateur], 200);
+         return response()->json($utilisateur, 200);
     }
 
     //suppr un utilisateur
