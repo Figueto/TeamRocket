@@ -25,12 +25,12 @@ class CastController extends Controller
     //fetch tous les cast
     public function index() {
          $casts = Cast::all();
-         return response()->json($casts, 200);
+         return response()->json(["liste_cast"=>$casts], 200);
     }
     //va chercher le cast avec l'id correspondant
     public function getCast($id) {
          $cast = Cast::findOrFail($id);
-         return response()->json($cast, 200);
+         return response()->json(["liste_cast"=>$cast], 200);
     }
 
     //crée un nouveau cast
@@ -38,7 +38,7 @@ class CastController extends Controller
           $this->validate($request, ["nom" => 'required', "prenom" => 'required', "illustration" => 'required']);
          $cast = Cast::create($request->all());
          $cast->save();
-         return response()->json($cast, 200);
+         return response()->json(["cast"=>$cast], 200);
     }
 
     //permet de modifier les informations d'un cast
@@ -51,7 +51,7 @@ class CastController extends Controller
          $cast->dateNaissance = $request->input('dateNaissance');
          $cast->dateMort = $request->input('dateMort');
          $cast->save();
-         return response()->json($cast, 200);
+         return response()->json(["cast"=>$cast], 200);
     }
 
     public function deleteCast($id) {
