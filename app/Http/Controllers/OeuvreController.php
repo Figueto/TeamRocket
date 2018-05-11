@@ -19,8 +19,8 @@ class OeuvreController extends Controller
      */
     public function __construct()
     {
-         //$this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
-         //$this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
+         $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
+         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
     }
 
     //fetch toutes les oeuvres
