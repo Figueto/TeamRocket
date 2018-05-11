@@ -6,7 +6,7 @@
 * Installer lumen ( https://lumen.laravel.com/docs/5.6 )
 * Ajouter JWT :  
 	composer require tymon/jwt-auth
-	composer require firebase/jwt-auth
+	composer require firebase/php-jwt
 * Créer un nouveau projet avec la commande -- lumen new [NOM]
 * Récuperer les fichiers du GIT avec un clone et les placer dans le dossier à la place des fichiers par défaut
 * Remplir les clés APP_KEY & JWT_SECRET avec un string de 32 chars
@@ -20,7 +20,11 @@ Pour le .env penser à remplir le APP_KEY avec un élement de 32 caractères sin
 (vous pouvez utiliser https://www.random.org/strings/ )
 
 
-
+### SE CONNECTER A L'APPLI
+Utiliser la route "localhost/nomProjet/public/api/login"
+Passer dans la requête les valeurs pseudo : superadmin et pass : admin
+La requête retourne un token. Le copier et le rajouter dans les url des requêtes qui demandent qu'un user soit connecté.
+Ex : http://localhost/DashlocalAuth/public/api/historique/1?token=votretoken
 	
 	
 ## Base de données : 
