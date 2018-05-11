@@ -15,7 +15,7 @@ class CreationOrigine extends Migration
     {
         DB::beginTransaction();
         Schema::create('origine', function (Blueprint $table) {
-            $table->integer('idPays');
+            $table->string('idPays',2);
             $table->integer('idOeuvre');
             $table->timestamps();
 
