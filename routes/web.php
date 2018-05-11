@@ -99,7 +99,7 @@ $router->put($lienAPI.'oeuvre/{id}/real', ['as'   => 'upd-oeuvre-R',	'uses' => '
 $router->post($lienAPI.'oeuvre', 'OeuvreController@saveOeuvre');
 $router->put($lienAPI.'oeuvre/{id}', ['as'   => 'upd-oeuvre',	'uses' => 'OeuvreController@updateOeuvre']);
 $router->delete($lienAPI.'oeuvre/{id}', ['as'   => 'del-oeuvre',	'uses' => 'OeuvreController@deleteOeuvre']);
-$router->get($lienAPI.'oeuvre/reco/{idUtilisateur}', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
+$router->get($lienAPI.'oeuvre/reco', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
 
 /*________SERIE_________*/
 // $router->get($lienAPI.'serie', 'SerieController@index');

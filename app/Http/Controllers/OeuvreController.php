@@ -20,7 +20,7 @@ class OeuvreController extends Controller
     public function __construct()
     {
          $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
-         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues']]);
+         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues', 'getRecommendations']]);
     }
 
     //fetch toutes les oeuvres
@@ -44,25 +44,25 @@ class OeuvreController extends Controller
     //va chercher l'oeuvre + pays d'origine + genre + acteurs + réals avec l'id correspondant
     public function getOeuvre($id) {
          $oeuvre = Oeuvre::findOrFail($id);
-         $genres = DB::table('genre')
+         $oeuvre->genres = DB::table('genre')
          ->join('appartenir', 'genre.idGenre', 'appartenir.idGenre')
          ->where('appartenir.idOeuvre', $id)
          ->pluck('genre.nom');
-         $pays = DB::table('pays')
+         $oeuvre->pays = DB::table('pays')
          ->join('origine', 'pays.idPays', 'origine.idPays')
          ->where('origine.idOeuvre', $id)
          ->pluck('pays.nom');
-         $acteurs = DB::table('cast')
+         $oeuvre->acteurs = DB::table('cast')
          ->join('jouer', 'cast.idCast', 'jouer.idCast')
          ->where('jouer.idOeuvre', $id)
          ->select('cast.nom', 'cast.prenom')
          ->get();
-         $real = DB::table('cast')
+         $oeuvre->real = DB::table('cast')
          ->join('realiser', 'cast.idCast', 'realiser.idCast')
          ->where('realiser.idOeuvre', $id)
          ->select('cast.nom', 'cast.prenom')
          ->get();
-         $vues = DB::table('regarder')
+         $oeuvre->vues = DB::table('regarder')
          ->where('idOeuvre', $id)
          ->count();
 
@@ -78,11 +78,11 @@ class OeuvreController extends Controller
               "Série" => $oeuvre->idSerie,
               'Saison' => $oeuvre->saison,
               'Episode' => $oeuvre->numEpisode,
-              'Genres' => $genres,
-              "Pays d'origine" =>$pays,
-              'Acteurs' =>$acteurs,
-              'Réalisateurs' => $real,
-              'Nombre de vues' => $vues
+              'Genres' => $oeuvre->genres,
+              "Pays d'origine" =>$oeuvre->pays,
+              'Acteurs' =>$oeuvre->acteurs,
+              'Réalisateurs' => $oeuvre->real,
+              'Nombre de vues' => $oeuvre->vues
          ], 200);
     }
 
@@ -114,8 +114,9 @@ class OeuvreController extends Controller
          return response()->json(['oeuvre' => $oeuvre], 200);
     }
 
-    public function getRecommendations($idUtilisateur) {
+    public function getRecommendations(Request $request) {
          //si rien dans l'historique, proposer les oeuvres avec le plus grand nbre de vues
+         $idUtilisateur = $request->auth->idUtilisateur;
          $historiqueExists = DB::table('regarder')
          ->where('idUtilisateur', $idUtilisateur)->exists();
          if($historiqueExists == false) {
@@ -123,7 +124,8 @@ class OeuvreController extends Controller
              ->join('oeuvre', 'oeuvre.idOeuvre', 'regarder.idOeuvre')
              ->groupBy('regarder.idOeuvre')
              ->orderBy(DB::raw("COUNT(regarder.idOeuvre)"), 'desc')
-             ->value('oeuvre.titre');
+             ->value('oeuvre.titre')
+             ->take(5);
               return response()->json(['recos' => $recos], 200);
          }
 
