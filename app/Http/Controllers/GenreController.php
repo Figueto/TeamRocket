@@ -19,7 +19,7 @@ class GenreController extends Controller
     public function __construct()
     {
         $this->middleware('auth',['except' => ['index','getGenre']]);
-         $this->middleware('admin',['except' => ['index','getGenre']]);*/
+         $this->middleware('admin',['except' => ['index','getGenre']]);
     }
 
     //fetch tous les genres
