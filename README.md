@@ -20,7 +20,11 @@ Pour le .env penser à remplir le APP_KEY avec un élement de 32 caractères sin
 (vous pouvez utiliser https://www.random.org/strings/ )
 
 
-
+### SE CONNECTER A L'APPLI
+Utiliser la route "localhost/nomProjet/public/api/login"
+Passer dans la requête les valeurs pseudo : superadmin et pass : admin
+La requête retourne un token. Le copier et le rajouter dans les url des requêtes qui demandent qu'un user soit connecté.
+Ex : http://localhost/DashlocalAuth/public/api/historique/1?token=votretoken
 	
 	
 ## Base de données : 
