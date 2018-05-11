@@ -6,7 +6,7 @@
 * Installer lumen ( https://lumen.laravel.com/docs/5.6 )
 * Ajouter JWT :  
 	composer require tymon/jwt-auth
-	composer require firebase/jwt-auth
+	composer require firebase/php-jwt
 * Créer un nouveau projet avec la commande -- lumen new [NOM]
 * Récuperer les fichiers du GIT avec un clone et les placer dans le dossier à la place des fichiers par défaut
 * Remplir les clés APP_KEY & JWT_SECRET avec un string de 32 chars
