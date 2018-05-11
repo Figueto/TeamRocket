@@ -45,6 +45,17 @@ class RegarderController extends Controller
 
     //renvoie la liste des oeuvres qu'un user a regardé
     public function getHistorique(Request $request, $idUtilisateur) {
+
+         //var_dump($request->auth);
+         $idUser = $request->auth->idUtilisateur;
+         var_dump($idUser); // return int(1)
+         $user = Auth::User();
+         var_dump($user); //return NULL
+         //$id = $user->idUtilisateur;
+         //var_dump($id); //error : trying to get property of non-object
+         $idUtili = Auth::id();
+         var_dump($idUtili); //return NULL
+         
          $userExists = DB::table('utilisateur')
         ->where('idUtilisateur', $idUtilisateur)
         ->exists();
@@ -73,7 +84,7 @@ class RegarderController extends Controller
          }
          $avis = Regarder::create($request->all());
          $avis->save();
-         
+
          return response()->json(['avis' => $avis], 200);
     }
 
