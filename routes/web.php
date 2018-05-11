@@ -10,11 +10,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
+//default route
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-<<<<<<< HEAD
 
 $lienAPI = "api/";
 
@@ -112,5 +111,3 @@ $router->get($lienAPI.'genre/{id}',  ['as'   => 'genre',	'uses' => 'GenreControl
 $router->post($lienAPI.'genre', 'GenreController@saveGenre');
 $router->put($lienAPI.'genre/{id}', ['as'   => 'upd-genre',	'uses' => 'GenreController@updateGenre']);
 $router->delete($lienAPI.'genre/{id}', ['as'   => 'del-genre',	'uses' => 'GenreController@deleteGenre']);
-=======
->>>>>>> master
