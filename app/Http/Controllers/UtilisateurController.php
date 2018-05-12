@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Utilisateur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Auth;
 
@@ -19,7 +20,7 @@ class UtilisateurController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['saveUtilisateur', 'updateUtilisateur']]);
+        $this->middleware('auth', ['except' => ['saveUtilisateur']]);
         $this->middleware('admin', ['except' => ['saveUtilisateur', 'updateUtilisateur']]);
     }
 
