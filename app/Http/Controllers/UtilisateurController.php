@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Auth;
-use App\Middleware\AdminMiddleware;
-use App\Kernel;
 
 
 class UtilisateurController extends Controller
