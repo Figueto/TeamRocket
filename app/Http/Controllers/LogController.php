@@ -25,7 +25,8 @@ class LogController extends Controller
 
     //fetch tous les logs
     public function index() {
-         $log = Log::all();
+         $log = DB::table('log')
+         ->orderBy('created_at', 'desc')->get();
          return response()->json(["liste_log" => $log], 200);
     }
     //va chercher le log avec l'id correspondant
