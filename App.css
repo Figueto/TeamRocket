@@ -1,0 +1,74 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.Oeuvre {
+}
+
+.Grille{
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.Colonne{
+  border;
+}
+
+#searchbar {
+   width: 100%;
+   box-sizing: border-box;
+   text-transform: uppercase;
+   text-align: center;
+}
+
+.formulaire .bouton {
+  box-shadow: none;
+  background-color: #E4B160;   /* Couleur de fond */
+  border-style: solid;   /* Style de la bordure  */
+  border-width: 1px;   /* Epaisseur de la bordure  */
+  border-color: #E8B960;   /* Couleur de la bordure  */
+  padding: 5px 10px 5px 10px;   /* Espace entre les bords et le contenu : haut droite bas gauche  */
+  width: 10%;   /* Permet d'ajuster la largeur du bouton à 100% */
+  box-sizing: border-box;   /* Important */
+  font-family: Arial;   /* Police du texte */
+  font-size: 13px;   /* Taille de la police du texte */
+  font-weight: normal;   /* Graisse du texte : normal = normal ; bold = gras */
+  letter-spacing: 2px;   /* Espacement des caractères */
+  margin: 10px;   /* Espace autour du bouton : haut droite bas gauche  */
+  text-transform: uppercase;   /* Transforme le texte en majuscules */
+  color: #ffffff;
+}
+
+.formulaire .bouton:hover {
+  background-color: #ffffff;   /* Couleur de fond */
+  color: #E8B960;   /* Couleur du texte */
+  cursor: pointer;   /* Apparence du curseur comme pour un lien */
+}
