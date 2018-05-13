@@ -20,6 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
+        <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
       </div>
     );
   }
