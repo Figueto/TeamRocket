@@ -38,11 +38,8 @@
   grid-auto-rows: minmax(100px, auto);
 }
 
-.Colonne{
-  border;
-}
 
-#searchbar {
+.SearchBar {
    width: 100%;
    box-sizing: border-box;
    text-transform: uppercase;
