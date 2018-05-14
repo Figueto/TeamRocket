@@ -46,19 +46,30 @@ class UtilisateurController extends Controller
          "mail" => 'required|unique:utilisateur',
          "pass" => 'required',
           "idNiveau" =>'required']);
+          //si user existe (connecté), stop
+          if($request->auth != null) {
+               abort(401, 'Vous êtes déjà connecté');
+          }
          $utilisateur = Utilisateur::create($request->all());
          $utilisateur->actif = 1;
            //hashage mdp
            $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
            $utilisateur->save();
 
-        LogController::save($request,1,3,$utilisateur->idUtilisateur);  
+        LogController::save($request,1,3,$utilisateur->idUtilisateur);
         return response()->json(["utilisateur"=>$utilisateur], 200);
     }
 
     //permet de modifier les informations d'un utilisateur
     public function updateUtilisateur(Request $request, $id) {
          $this->validate($request, ["pseudo" => 'required', "mail" => 'required', "pass" => 'required']);
+         //si pas admin
+         if(!estAdmin($request->auth)) {
+              //verifier si l'id rentré est le sien
+              if($id != $request->auth->idUtilisateur) {
+                   abort(401, "Ce n'est pas votre compte, vous ne pouvez pas le modifier !");
+              }
+         }
          $utilisateur = Utilisateur::findOrFail($id);
          $utilisateur->pseudo = $request->input('pseudo');
          $utilisateur->mail = $request->input('mail');
@@ -66,7 +77,7 @@ class UtilisateurController extends Controller
          //hashage mdp
          $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
          $utilisateur->save();
-        LogController::save($request,3,3,$id);  
+        LogController::save($request,3,3,$id);
          return response()->json(["utilisateur"=>$utilisateur], 200);
     }
 
@@ -74,7 +85,7 @@ class UtilisateurController extends Controller
     public function deleteUtilisateur($id) {
          $utilisateur = Utilisateur::findOrFail($id);
          $utilisateur->delete();
-        LogController::save($request,2,3,$id);  
+        LogController::save($request,2,3,$id);
          return response()->json(['status' => 'Deleted'], 200);
     }
 }

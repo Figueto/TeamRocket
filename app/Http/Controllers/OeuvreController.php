@@ -45,6 +45,12 @@ class OeuvreController extends Controller
     //va chercher l'oeuvre + pays d'origine + genre + acteurs + réals avec l'id correspondant
     public function getOeuvre($id) {
          $oeuvre = Oeuvre::findOrFail($id);
+         if($oeuvre->idSerie != null) {
+            $oeuvre->serie = DB::table('serie')
+            ->where('idSerie', $oeuvre->idSerie)
+            ->select('titre', 'resume', 'keywords')
+            ->get();
+        }
          $oeuvre->genres = DB::table('genre')
          ->join('appartenir', 'genre.idGenre', 'appartenir.idGenre')
          ->where('appartenir.idOeuvre', $id)
@@ -70,6 +76,7 @@ class OeuvreController extends Controller
          return response()->json([
               'Id' => $oeuvre->idOeuvre,
               'Titre' => $oeuvre->titre,
+              'Serie' => $oeuvre->serie,
               'Date de sortie' => $oeuvre->dateSortie,
               'Bande-annonce' => $oeuvre->lienBandeAnnonce,
               'Illustration' => $oeuvre->illustration,
@@ -87,6 +94,16 @@ class OeuvreController extends Controller
          ], 200);
     }
 
+    public function recherche() {
+         //fonction de recherche d'oeuvre liée au formulaire de recherche en front. On pourra ajouter des paremètres.
+         $titre = $request->input('titre');
+         $resultats = DB::table('oeuvre')
+         ->where('titre', $titre)
+         ->select('titre', 'dateSortie', 'lienBandeAnnonce', 'illustration', 'resume')
+         ->get();
+
+         return response()->json(['resultats' => $resultats], 200);
+    }
     //crée une nouvelle oeuvre et les lignes correspondantes dans les tables d'union Appartenir et Origine
     public function saveOeuvre(Request $request) {
           $this->validate($request, ["titre" => 'required', "slug" => 'required|unique:oeuvre']);
@@ -323,7 +340,7 @@ class OeuvreController extends Controller
         ->delete();
    }
         LogController::save($request,2,1,$id);
-          
+
          return response()->json(['status' => 'Deleted'], 200);
     }
 }

@@ -45,7 +45,7 @@ class AdminMiddleware
         if(!$user = $request->auth){
             return response()->json([
                 'error' => 'You are not logged in'
-            ], 401); 
+            ], 401);
         }
         if($user->idNiveau === 1 || $user->idNiveau === 2)
             return $next($request);
@@ -54,5 +54,11 @@ class AdminMiddleware
                 'error' => 'You are not authorised to be there'
             ], 403);
         }
+    }
+    public function estAdmin($user) {
+         if($user->idNiveau === 1 || $user->idNiveau === 2) {
+              return 1;
+         }
+         return 0;
     }
 }
