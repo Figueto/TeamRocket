@@ -12,21 +12,37 @@
 }
 
 .Oeuvre {
+padding-top: 15px;
+padding-bottom:30px;
+margin: 10px;
+box-sizing:content-box;
+box-sizing: unset;
+border:3px rgba(31, 117, 127, .3) solid;
+border-radius:15px;
+background-color: rgba(255, 255, 255, 1);
+
+
 
 }
 
 .Grille{
-  display: grid;
+  display:grid;
   grid-template-columns: 200px 200px 200px;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
-  grid-auto-rows: minmax(100px, auto);
+
+  /*grid-auto-rows: minmax(100px, auto);*/
 }
 
 .Colonne{
-  width: 480px;
+  width: 450px;
   height: 1000px;
-    overflow: scroll;
+  overflow: scroll;
+  border:5px rgba(0, 0, 0, .2) solid;
+  border-radius:15px;
+  margin: 2px;
+  background-color: rgba(255, 207, 153, .2);
+
+
 }
 
 .SearchBar {
@@ -67,7 +83,8 @@ h1{
 
 
 .Grille ::-webkit-scrollbar {
-    width: 20px;
+
+    width: 15px;
 }
 
 .Grille ::-webkit-scrollbar-track {
@@ -84,4 +101,14 @@ h1{
 
 .Grille ::-webkit-scrollbar-thumb:hover {
     background: #22617F;
+}
+
+.Date{
+  font-size:12px;
+  font-style: italic;
+}
+
+.InfosOeuvre{
+  text-align:left;
+  padding-left: 7%;
 }
