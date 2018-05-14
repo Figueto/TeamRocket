@@ -111,7 +111,8 @@ class OeuvreController extends Controller
              DB::table('origine')
              ->insert(['idPays' => $idPays, 'idOeuvre' => $oeuvre->idOeuvre]);
         }
-         return response()->json(['oeuvre' => $oeuvre], 200);
+        LogController::save($request,1,1,$oeuvre->idOeuvre);
+        return response()->json(['oeuvre' => $oeuvre], 200);
     }
 
     public function getRecommendations(Request $request) {
@@ -164,6 +165,7 @@ class OeuvreController extends Controller
          $oeuvre->saison = $request->input('saison');
          $oeuvre->numEpisode = $request->input('numEpisode');
          $oeuvre->idSerie = $request->input('idSerie');
+          LogController::save($request,3,1,$id);
 
          if($request->has('genre')) {
               $nomGenre = $request->input('genre');
@@ -319,6 +321,8 @@ class OeuvreController extends Controller
         ->where('idOeuvre', $id)
         ->delete();
    }
+        LogController::save($request,2,1,$id);
+          
          return response()->json(['status' => 'Deleted'], 200);
     }
 }

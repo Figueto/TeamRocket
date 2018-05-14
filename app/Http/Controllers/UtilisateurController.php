@@ -50,7 +50,9 @@ class UtilisateurController extends Controller
            //hashage mdp
            $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
            $utilisateur->save();
-         return response()->json(["utilisateur"=>$utilisateur], 200);
+
+        LogController::save($request,1,3,$utilisateur->idUtilisateur);  
+        return response()->json(["utilisateur"=>$utilisateur], 200);
     }
 
     //permet de modifier les informations d'un utilisateur
@@ -63,6 +65,7 @@ class UtilisateurController extends Controller
          //hashage mdp
          $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
          $utilisateur->save();
+        LogController::save($request,3,3,$id);  
          return response()->json(["utilisateur"=>$utilisateur], 200);
     }
 
@@ -70,6 +73,7 @@ class UtilisateurController extends Controller
     public function deleteUtilisateur($id) {
          $utilisateur = Utilisateur::findOrFail($id);
          $utilisateur->delete();
+        LogController::save($request,2,3,$id);  
          return response()->json(['status' => 'Deleted'], 200);
     }
 }
