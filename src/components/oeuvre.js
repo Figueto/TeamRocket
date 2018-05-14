@@ -14,15 +14,15 @@ export default class Oeuvre extends React.Component {
 
 	render() {
 		const {films} = this.state;
-		const  content = <div className='inner-content'>
+		const  content = <div className='Oeuvre'>
 			{films.map(film => {
 				return <tr key={film.id}>
-				      <p> Le titre est = {film.titre} </p>
-				      <p> La date est = {film.date} </p>
-				      <p> Lauteur est = {film.auteur} </p>
-				      <p> Le genre est = {film.genre} </p>
-				      <p> Le pays est = {film.pays} </p>
-				      <p> Le resume est = {film.resume} </p>
+				      <h4> Le titre est = {film.titre} </h4>
+				      <p className='Date'> La date est = {film.date} </p>
+				      <p className = 'Auteur'> Lauteur est = {film.auteur} </p>
+				      <p className = 'Genre'> Le genre est = {film.genre} </p>
+				      <p className = 'Pays'> Le pays est = {film.pays} </p>
+				      <p className = 'Resume'> Le resume est = {film.resume} </p>
 			     </tr>
 		 	})}
 	    </div>
