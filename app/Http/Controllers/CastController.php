@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cast;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LogController;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Auth;
@@ -38,6 +39,7 @@ class CastController extends Controller
           $this->validate($request, ["nom" => 'required', "prenom" => 'required', "illustration" => 'required']);
          $cast = Cast::create($request->all());
          $cast->save();
+         LogController::save($request,1,2,$cast->idCast);
          return response()->json(["cast"=>$cast], 200);
     }
 
@@ -51,12 +53,14 @@ class CastController extends Controller
          $cast->dateNaissance = $request->input('dateNaissance');
          $cast->dateMort = $request->input('dateMort');
          $cast->save();
+         LogController::save($request,3,2,$id);
          return response()->json(["cast"=>$cast], 200);
     }
 
     public function deleteCast($id) {
          $cast = Cast::findOrFail($id);
          $cast->delete();
+         LogController::save($request,2,2,$id);
          return response()->json(['status' => 'Deleted'], 200);
     }
 }

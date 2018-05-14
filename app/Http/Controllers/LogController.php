@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Log;
 use App\Http\Controllers\Controller;
+use App\Cast;
+use App\Oeuvre;
+use App\Utilisateur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
@@ -39,11 +42,35 @@ class LogController extends Controller
     }
 
     //crée un nouveau log
-    public function saveLog(Request $request) {
-         $this->validate($request, ["idAdministrateur" => 'required']);
-         $log = Log::create($request->all());
-         $log->save();
-         return response()->json(["log"=>$log], 200);
+    /*
+    *   @params : 
+    *   TypeLog
+    *   1 => 'Ajout'
+    *   2 => 'Suppression'
+    *   3 => 'Modification'
+    *
+    *   1 => Oeuvre 
+    *   2 => Cast   
+    *   3 => Utilisateur
+    */
+    public static function save(Request $request, int $typeLog, int $typeElement, int $idElement) {
+        $idUtilisateur = $request->auth->idUtilisateur;
+        switch ($typeElement) {
+            case 1:
+                $typeElement = "idOeuvre";
+                break;
+            case 2:
+                $typeElement = "idCast";
+                break;
+            case 3:
+                $typeElement = "idUtilisateur";
+                break;
+            default:
+                break;
+        }
+        $log = Log::create(["idAdministrateur" => $idUtilisateur, "idEnumOperation" => $typeLog, $typeElement => $idElement]);
+        $log->save();
+        return response()->json(["log"=>$log], 200);
     }
 
     //permet de modifier les informations d'une opération
