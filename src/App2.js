@@ -1,29 +1,11 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-function Oeuvre({titre, date, auteur, genre, pays, resume}) {
-  return (
-    <div className="Oeuvre">
-      <p> Le titre est = {titre} </p>
-      <p> La date est = {date} </p>
-      <p> Lauteur est = {auteur} </p>
-      <p> Le genre est = {genre} </p>
-      <p> Le pays est = {pays} </p>
-      <p> Le resume est = {resume} </p>
-    </div>
-  )
-}
+import Oeuvre from './components/oeuvre.js';
 
-Oeuvre.defaultProps = {
-  titre: 'Inconnu',
-  date: 'Inconnu',
-  auteur: 'Inconnu',
-  genre: 'Inconnu',
-  pays: 'Inconnu',
-  resume: 'Inconnu', 
-}
+
 
 function Statistique({temps, catégorie, note}) {
   return (
@@ -56,7 +38,7 @@ SearchBar.propTypes = {
   search: PropTypes.string.isRequired,
 }
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className="App">
@@ -65,21 +47,11 @@ class App extends Component {
       <div className= "Grille">
         <div className= "Colonne">
           <h2> Terminés </h2>
-          <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
-          <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
-          <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
-          <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
-          <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
-          <Oeuvre titre = "Titanic" date ="1997" auteur = "James Cameron" />
+          <Oeuvre />
         </div>
         <div className= "Colonne">
           <h2> A voir </h2>
-          <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
-          <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
-          <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
-          <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
-          <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
-          <Oeuvre titre = "Scarface" auteur = "Brian De Palma" />
+          <Oeuvre />
         </div>
         <div className= "Colonne">
           <h2> Statistiques </h2>
