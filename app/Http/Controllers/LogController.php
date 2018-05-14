@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Auth;
 
@@ -24,12 +25,16 @@ class LogController extends Controller
 
     //fetch tous les logs
     public function index() {
-         $log = Log::all();
-         return response()->json(["liste_log"=>$log], 200);
+         $log = DB::table('log')
+         ->orderBy('created_at', 'desc')->get();
+         return response()->json(["liste_log" => $log], 200);
     }
     //va chercher le log avec l'id correspondant
     public function getLog($id) {
          $log = Log::findOrFail($id);
+         $log->enumOp = DB::table('enumoperation')
+         ->where('idEnumOperation', $log->idEnumOperation)
+         ->value('intitule');
          return response()->json($log, 200);
     }
 

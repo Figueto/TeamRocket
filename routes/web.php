@@ -84,14 +84,15 @@ $router->get($lienAPI.'log/{id}',  ['as'   => 'log',	'uses' => 'LogController@ge
 /*________REGARDER_________*/
 $router->get($lienAPI.'avis', 'RegarderController@index');
 $router->get($lienAPI.'avis/{idOeuvre}',  ['as'   => 'avis',	'uses' => 'RegarderController@getAvis']);
-$router->get($lienAPI.'historique/{idUtilisateur}', 'RegarderController@getHistorique');
+$router->get($lienAPI.'historique', 'RegarderController@getHistorique');
 $router->post($lienAPI.'avis', 'RegarderController@saveAvis');
-$router->put($lienAPI.'avis/{idUtilisateur}-{idOeuvre}', ['as'   => 'upd-avis',	'uses' => 'RegarderController@updateAvis']);
-$router->delete($lienAPI.'avis/{idUtilisateur}-{idOeuvre}', ['as'   => 'del-avis',	'uses' => 'RegarderController@deleteAvis']);
+$router->put($lienAPI.'avis/{idOeuvre}', ['as'   => 'upd-avis',	'uses' => 'RegarderController@updateAvis']);
+$router->delete($lienAPI.'avis/{idOeuvre}', ['as'   => 'del-avis',	'uses' => 'RegarderController@deleteAvis']);
 
 /*________OEUVRE_________*/
 $router->get($lienAPI.'oeuvre', 'OeuvreController@index');
 $router->get($lienAPI.'oeuvre/{id}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@getOeuvre']);
+$router->get($lienAPI.'recos', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
 $router->put($lienAPI.'oeuvre/{id}/genre', ['as'   => 'upd-oeuvre-G',	'uses' => 'OeuvreController@addGenre']);
 $router->put($lienAPI.'oeuvre/{id}/pays', ['as'   => 'upd-oeuvre-P',	'uses' => 'OeuvreController@addPays']);
 $router->put($lienAPI.'oeuvre/{id}/acteur', ['as'   => 'upd-oeuvre-A',	'uses' => 'OeuvreController@addActeur']);
@@ -99,7 +100,7 @@ $router->put($lienAPI.'oeuvre/{id}/real', ['as'   => 'upd-oeuvre-R',	'uses' => '
 $router->post($lienAPI.'oeuvre', 'OeuvreController@saveOeuvre');
 $router->put($lienAPI.'oeuvre/{id}', ['as'   => 'upd-oeuvre',	'uses' => 'OeuvreController@updateOeuvre']);
 $router->delete($lienAPI.'oeuvre/{id}', ['as'   => 'del-oeuvre',	'uses' => 'OeuvreController@deleteOeuvre']);
-$router->get($lienAPI.'oeuvre/reco/{idUtilisateur}', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
+
 
 /*________SERIE_________*/
 // $router->get($lienAPI.'serie', 'SerieController@index');

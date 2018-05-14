@@ -44,7 +44,8 @@ class RegarderController extends Controller
     }
 
     //renvoie la liste des oeuvres qu'un user a regardé
-    public function getHistorique(Request $request, $idUtilisateur) {
+    public function getHistorique(Request $request) {
+         $idUtilisateur = $request->auth->idUtilisateur;
          $userExists = DB::table('utilisateur')
         ->where('idUtilisateur', $idUtilisateur)
         ->exists();
@@ -61,9 +62,12 @@ class RegarderController extends Controller
 
     //cree un nouvel avis
     public function saveAvis(Request $request) {
-         $this->validate($request, ["idUtilisateur" => 'required', "idOeuvre" => 'required', "dateVisionnage" => 'required|date']);
+         $idUtilisateur = $request->auth->idUtilisateur;
+         echo $idUtilisateur;
+
+         $this->validate($request, ["idOeuvre" => 'required', "dateVisionnage" => 'required|date']);
          $userExists = DB::table('utilisateur')
-         ->where('idUtilisateur', $request->input('idUtilisateur'))
+         ->where('idUtilisateur', $idUtilisateur)
          ->exists();
          $oeuvreExists = DB::table('oeuvre')
          ->where('idOeuvre', $request->input('idOeuvre'))
@@ -72,13 +76,16 @@ class RegarderController extends Controller
               abort(500, "User or oeuvre doesn't exist.");
          }
          $avis = Regarder::create($request->all());
-         $avis->save();
-         
+         DB::table('regarder')
+         ->where([ ['idUtilisateur', 0], ['idOeuvre', $request->input('idOeuvre')] ])
+         ->update(['idUtilisateur' => $idUtilisateur]);
+
          return response()->json(['avis' => $avis], 200);
     }
 
     //permet de modifier les informations d'un avis
-    public function updateAvis(Request $request, $idUtilisateur, $idOeuvre) {
+    public function updateAvis(Request $request, $idOeuvre) {
+         $idUtilisateur = $request->auth->idUtilisateur;
          $userExists = DB::table('utilisateur')
          ->where('idUtilisateur', $idUtilisateur)
          ->exists();
@@ -111,7 +118,8 @@ class RegarderController extends Controller
     }
 
     //supprime un avis
-    public function deleteAvis($idUtilisateur, $idOeuvre) {
+    public function deleteAvis(Request $request, $idOeuvre) {
+         $idUtilisateur = $request->auth->idUtilisateur;
          $userExists = DB::table('utilisateur')
          ->where('idUtilisateur', $idUtilisateur)
          ->exists();

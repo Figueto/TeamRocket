@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Crypt;
 use App\Utilisateur;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Auth;
 
@@ -19,8 +20,8 @@ class UtilisateurController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin');
+        $this->middleware('auth', ['except' => ['saveUtilisateur']]);
+        $this->middleware('admin', ['except' => ['saveUtilisateur', 'updateUtilisateur']]);
     }
 
     //fetch tous les utilisateurs
@@ -31,14 +32,20 @@ class UtilisateurController extends Controller
     //va chercher l'utilisateur avec l'id correspondant
     public function getUtilisateur($id) {
          $utilisateur = Utilisateur::findOrFail($id);
+         $utilisateur->nivUtilisateur = DB::table('niveauutilisateur')
+         ->where('idNiveau', $utilisateur->idNiveau)
+         ->value('type');
          return response()->json(["utilisateur" => $utilisateur], 200);
     }
 
     //crée un nouvel utilisateur
     public function saveUtilisateur(Request $request) {
-         $this->validate($request, ["pseudo" => 'required|unique:utilisateur', "mail" => 'required|unique:utilisateur', "pass" => 'required']);
+         $this->validate($request,
+         ["pseudo" => 'required|unique:utilisateur',
+         "mail" => 'required|unique:utilisateur',
+         "pass" => 'required',
+          "idNiveau" =>'required']);
          $utilisateur = Utilisateur::create($request->all());
-         $utilisateur->idNiveau = 1;
          $utilisateur->actif = 1;
            //hashage mdp
            $utilisateur->pass = Crypt::encrypt($utilisateur->pass);
