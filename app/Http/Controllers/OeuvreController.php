@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Oeuvre;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LogController;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;

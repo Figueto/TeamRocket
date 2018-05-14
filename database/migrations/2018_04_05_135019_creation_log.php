@@ -23,6 +23,7 @@ class CreationLog extends Migration
             $table->integer('idEnumOperation')->nullable();
             $table->integer('idCast')->nullable();
             $table->integer('idUtilisateur')->nullable();
+            $table->string('idPays',2);
 
             $table->timestamps();
         });

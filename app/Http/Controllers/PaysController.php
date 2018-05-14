@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Pays;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\LogController;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Auth;
@@ -41,6 +42,7 @@ class PaysController extends Controller
         try{
             $pays = new Pays($request->all());
             $pays->save();
+            LogController::save($request,1,4,$pays->idCast);
         }catch(QueryException $e ){
             return response()->json(["status"=>"Duplicate key"],409);
         }
@@ -55,12 +57,14 @@ class PaysController extends Controller
         $pays = pays::findOrFail($country_code);
         $pays->nom = $request->input('nom');
         $pays->save();
+        LogController::save($request,3,4,$country_code);
         return response()->json(["pays" => $pays],200);
     }
 
     public function deletePays($country_code) {
          $pays = pays::findOrFail($country_code);
          $pays->delete();
+        LogController::save($request,3,4,$country_code);
          return response()->json(['status'=>'Deleted'],200);
     }
 }

@@ -52,6 +52,7 @@ class LogController extends Controller
     *   1 => Oeuvre 
     *   2 => Cast   
     *   3 => Utilisateur
+    *   4 => Pays
     */
     public static function save(Request $request, int $typeLog, int $typeElement, int $idElement) {
         $idUtilisateur = $request->auth->idUtilisateur;
@@ -64,6 +65,9 @@ class LogController extends Controller
                 break;
             case 3:
                 $typeElement = "idUtilisateur";
+                break;
+            case 4:
+                $typeElement = "idPays";
                 break;
             default:
                 break;
