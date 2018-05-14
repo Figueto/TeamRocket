@@ -45,7 +45,7 @@ function SearchBar({search}){
   return(
     <div className="SearchBar">
         <form action="" class="formulaire">
-          <input class="champ" type="text" value={search}/>
+          <input class="champ" type="text" placeholder="Rechercher une oeuvre" value={search}/>
           <input class="bouton" type="button" value="Rechercher" />
         </form>
     </div>
@@ -61,7 +61,7 @@ class App extends Component {
     return (
       <div className="App">
       <h1>DashBoard Team Rocket </h1>
-      <SearchBar search='Rechercher une oeuvre' />
+      <SearchBar search='' />
       <div className= "Grille">
         <div className= "Colonne">
           <h2> Terminés </h2>
