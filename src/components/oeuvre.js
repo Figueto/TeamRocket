@@ -19,10 +19,12 @@ export default class Oeuvre extends React.Component {
 				return <tr key={film.id}>
 				      <h4> Le titre est = {film.titre} </h4>
 				      <p className='Date'> La date est = {film.date} </p>
-				      <p className = 'Auteur'> Lauteur est = {film.auteur} </p>
-				      <p className = 'Genre'> Le genre est = {film.genre} </p>
-				      <p className = 'Pays'> Le pays est = {film.pays} </p>
-				      <p className = 'Resume'> Le resume est = {film.resume} </p>
+				      <div className = 'InfosOeuvre'>
+					      <p className = 'Auteur'> Lauteur est = {film.auteur} </p>
+					      <p className = 'Genre'> Le genre est = {film.genre} </p>
+					      <p className = 'Pays'> Le pays est = {film.pays} </p>
+					      <p className = 'Resume'> Le resume est = {film.resume} </p>
+				      </div>
 			     </tr>
 		 	})}
 	    </div>
