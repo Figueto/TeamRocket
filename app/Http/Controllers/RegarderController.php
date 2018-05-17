@@ -63,8 +63,6 @@ class RegarderController extends Controller
     //cree un nouvel avis
     public function saveAvis(Request $request) {
          $idUtilisateur = $request->auth->idUtilisateur;
-         echo $idUtilisateur;
-
          $this->validate($request, ["idOeuvre" => 'required', "dateVisionnage" => 'required|date']);
          $userExists = DB::table('utilisateur')
          ->where('idUtilisateur', $idUtilisateur)

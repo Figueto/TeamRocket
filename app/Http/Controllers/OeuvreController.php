@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Oeuvre;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\LogController;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -20,8 +19,8 @@ class OeuvreController extends Controller
      */
     public function __construct()
     {
-         $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues']]);
-         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues', 'getRecommendations']]);
+         $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues', 'recherche']]);
+         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues', 'recherche', 'getRecommendations']]);
     }
 
     //fetch toutes les oeuvres
@@ -42,9 +41,16 @@ class OeuvreController extends Controller
          return $vues;
     }
 
-    //va chercher l'oeuvre + pays d'origine + genre + acteurs + réals avec l'id correspondant
+    //va chercher l'oeuvre + pays d'origine + genre + acteurs + réals avec l'id correspondant/
+    //si ya une idSerie, on recup les infos de la serie, sinon non
     public function getOeuvre($id) {
          $oeuvre = Oeuvre::findOrFail($id);
+         if($oeuvre->idSerie != null) {
+              $oeuvre->serie = DB::table('serie')
+              ->where('idSerie', $oeuvre->idSerie)
+              ->select('titre', 'resume', 'keywords')
+              ->get();
+         }
          $oeuvre->genres = DB::table('genre')
          ->join('appartenir', 'genre.idGenre', 'appartenir.idGenre')
          ->where('appartenir.idOeuvre', $id)
@@ -70,6 +76,7 @@ class OeuvreController extends Controller
          return response()->json([
               'Id' => $oeuvre->idOeuvre,
               'Titre' => $oeuvre->titre,
+              'Serie' => $oeuvre->serie,
               'Date de sortie' => $oeuvre->dateSortie,
               'Bande-annonce' => $oeuvre->lienBandeAnnonce,
               'Illustration' => $oeuvre->illustration,
@@ -87,11 +94,26 @@ class OeuvreController extends Controller
          ], 200);
     }
 
+public function recherche(Request $request) {
+     $nom = $request->input('titre');
+     echo $nom; //affiche RIEN ???? WTF
+     $resultats = DB::table('oeuvre')
+     ->where('idOeuvre', $nom)
+     ->select('titre', 'dateSortie', 'lienBandeAnnonce', 'illustration', 'resume')
+     ->get();
+
+     return response()->json(['resultats' => $resultats], 200);
+}
+
     //crée une nouvelle oeuvre et les lignes correspondantes dans les tables d'union Appartenir et Origine
     public function saveOeuvre(Request $request) {
           $this->validate($request, ["titre" => 'required', "slug" => 'required|unique:oeuvre']);
          $oeuvre = Oeuvre::create($request->all());
          $oeuvre->save();
+
+         //si ya un numEpisode dans requete, on cree entree dans Serie
+         //mais du coup il entre pas le nom de la serie ni rien
+         //et comme il précise pas à quelle serie l'oeuvre appartient, si la serie existe deja dans serie ça va faire doublon
 
          //cree entrée dans Appartenir
          if($request->has('genre')) {
@@ -112,8 +134,7 @@ class OeuvreController extends Controller
              DB::table('origine')
              ->insert(['idPays' => $idPays, 'idOeuvre' => $oeuvre->idOeuvre]);
         }
-        LogController::save($request,1,1,$oeuvre->idOeuvre);
-        return response()->json(['oeuvre' => $oeuvre], 200);
+         return response()->json(['oeuvre' => $oeuvre], 200);
     }
 
     public function getRecommendations(Request $request) {
@@ -166,7 +187,6 @@ class OeuvreController extends Controller
          $oeuvre->saison = $request->input('saison');
          $oeuvre->numEpisode = $request->input('numEpisode');
          $oeuvre->idSerie = $request->input('idSerie');
-          LogController::save($request,3,1,$id);
 
          if($request->has('genre')) {
               $nomGenre = $request->input('genre');
@@ -322,8 +342,6 @@ class OeuvreController extends Controller
         ->where('idOeuvre', $id)
         ->delete();
    }
-        LogController::save($request,2,1,$id);
-          
          return response()->json(['status' => 'Deleted'], 200);
     }
 }
