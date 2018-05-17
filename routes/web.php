@@ -14,6 +14,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+<<<<<<< HEAD
 
 $lienAPI = "api/";
 
@@ -115,3 +116,5 @@ $router->delete($lienAPI.'oeuvre/{id}', ['as'   => 'del-oeuvre',	'uses' => 'Oeuv
 // $router->post($lienAPI.'genre', 'GenreController@saveGenre');
 // $router->put($lienAPI.'genre/{id}', ['as'   => 'upd-genre',	'uses' => 'GenreController@updateGenre']);
 // $router->delete($lienAPI.'genre/{id}', ['as'   => 'del-genre',	'uses' => 'GenreController@deleteGenre']);
+=======
+>>>>>>> 5174161e16fa2ed6598c769b5efa3bc99ac1ac4a
