@@ -113,15 +113,28 @@ public function recherche(Request $request) {
      return response()->json(['resultats' => $resultats], 200);
 }
 
+public function generateSlug($string) {
+     $string = trim(preg_replace('/[^a-z0-9]+/', '-', strtolower($string)), '-');
+     $slugExists = DB::table('oeuvre')
+    ->where('slug', $string)
+    ->exists();
+    if($slugExists) {
+         $string = $string."2";
+    }
+     return $string;
+}
+
     //crée une nouvelle oeuvre et les lignes correspondantes dans les tables d'union Appartenir et Origine
     public function saveOeuvre(Request $request) {
-          $this->validate($request, ["titre" => 'required', "slug" => 'required|unique:oeuvre']);
-         $oeuvre = Oeuvre::create($request->all());
-         $oeuvre->save();
-
-         //si ya un numEpisode dans requete, on cree entree dans Serie
-         //mais du coup il entre pas le nom de la serie ni rien
-         //et comme il précise pas à quelle serie l'oeuvre appartient, si la serie existe deja dans serie ça va faire doublon
+         $this->validate($request, ["titre" => 'required']);
+        $slug = $this->generateSlug($request->input("titre"));
+        $tab = $request->all();
+        $tab['slug'] = $slug;
+        $oeuvre = Oeuvre::create($tab);
+        //update champ slug
+        DB::table("oeuvre")
+        ->where('idOeuvre', $oeuvre->id)
+        ->update(['slug' => $slug]);
 
          //cree entrée dans Appartenir
          if($request->has('genre')) {
