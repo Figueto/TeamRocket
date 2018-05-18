@@ -4,6 +4,8 @@ import './App.css';
 import PropTypes from 'prop-types';
 
 import Oeuvre from './components/oeuvre.js';
+import OeuvreTerminees from './components/oeuvreTerminees.js';
+import OeuvreAvoir from './components/oeuvreAvoir.js';
 import Statistique from './components/statistique.js';
 import SearchBar from './components/searchbar.js';
 
@@ -17,11 +19,11 @@ class App extends React.Component {
       <div className= "Grille">
         <div className= "Colonne">
           <h2> Terminés </h2>
-          <Oeuvre />
+          <OeuvreTerminees />
         </div>
         <div className= "Colonne">
           <h2> A voir </h2>
-          <Oeuvre />
+          <OeuvreAvoir />
         </div>
         <div className= "Colonne">
           <Statistique />

@@ -6,10 +6,7 @@ export default class Oeuvre extends React.Component {
 	constructor (props) {
 		super(props)
 		this.state = {
-			films: [
-				{id: 1, titre: 'Titanic', date: '1997', auteur: 'James Cameron', genre: 'Drame', pays: 'USA', resume: 'Un bateau coule'},
-				{id: 2, titre: 'Fast and Furious', date: 'Inconnu', auteur: 'Vin Diesel', genre: 'Vin Diesel', pays: 'USA', resume:'Vin Diesel'}
-			]
+			films: []
 		}
 	}
 
@@ -26,12 +23,12 @@ export default class Oeuvre extends React.Component {
 					      <p className = 'Genre'> Le genre est = {film.genre} </p>
 					      <p className = 'Pays'> Le pays est = {film.pays} </p>
 					      <p className = 'Resume'> Le resume est = {film.resume} </p>
-				      </div>     
+				      </div>
 			    </div>
 			    </tr>
 		 	})}
 	    </div>
 	    return content;
 	}
-	
+
 }
