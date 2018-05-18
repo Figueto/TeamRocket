@@ -19,8 +19,8 @@ class OeuvreController extends Controller
      */
     public function __construct()
     {
-         $this->middleware('auth',['except' => ['index','getOeuvre', 'nbreVues', 'recherche']]);
-         $this->middleware('admin',['except' => ['index','getOeuvre', 'nbreVues', 'recherche', 'getRecommendations']]);
+         $this->middleware('auth',['except' => ['index','getOeuvre', 'getOeuvreBySlug', 'nbreVues', 'recherche']]);
+         $this->middleware('admin',['except' => ['index','getOeuvre', 'getOeuvreBySlug', 'nbreVues', 'recherche', 'getRecommendations']]);
     }
 
     //fetch toutes les oeuvres
@@ -39,6 +39,14 @@ class OeuvreController extends Controller
          }
          $vues = DB::select("SELECT COUNT(idOeuvre) FROM regarder WHERE idOeuvre = $id");
          return $vues;
+    }
+
+    public function getOeuvreBySlug($slug) {
+      $oeuvre = DB::table('oeuvre')
+         ->where('slug', $slug)
+         ->select('idOeuvre')
+         ->get('idOeuvre');
+      return $this->getOeuvre($oeuvre[0]->idOeuvre);
     }
 
     //va chercher l'oeuvre + pays d'origine + genre + acteurs + réals avec l'id correspondant/
@@ -81,15 +89,15 @@ class OeuvreController extends Controller
               'Bande-annonce' => $oeuvre->lienBandeAnnonce,
               'Illustration' => $oeuvre->illustration,
               'Slug' => $oeuvre->slug,
-              'Résumé' => $oeuvre->resume,
+              'Resume' => $oeuvre->resume,
               'Keywords' => $oeuvre->keywords,
-              "Série" => $oeuvre->idSerie,
+              "Serie" => $oeuvre->idSerie,
               'Saison' => $oeuvre->saison,
               'Episode' => $oeuvre->numEpisode,
               'Genres' => $oeuvre->genres,
               "Pays d'origine" =>$oeuvre->pays,
               'Acteurs' =>$oeuvre->acteurs,
-              'Réalisateurs' => $oeuvre->real,
+              'Realisateurs' => $oeuvre->real,
               'Nombre de vues' => $oeuvre->vues
          ], 200);
     }

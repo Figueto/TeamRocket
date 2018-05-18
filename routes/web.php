@@ -92,6 +92,7 @@ $router->delete($lienAPI.'avis/{idOeuvre}', ['as'   => 'del-avis',	'uses' => 'Re
 /*________OEUVRE_________*/
 $router->get($lienAPI.'oeuvre', 'OeuvreController@index');
 $router->get($lienAPI.'oeuvre/{id}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@getOeuvre']);
+$router->get($lienAPI.'oeuvre/byslug/{slug}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@getOeuvreBySlug']);
 $router->get($lienAPI.'recos', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
 $router->get($lienAPI.'search',  ['as'   => 'search',	'uses' => 'OeuvreController@recherche']);
 $router->put($lienAPI.'oeuvre/{id}/genre', ['as'   => 'upd-oeuvre-G',	'uses' => 'OeuvreController@addGenre']);
