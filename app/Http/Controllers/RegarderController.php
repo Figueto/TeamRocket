@@ -34,7 +34,7 @@ class RegarderController extends Controller
          ->where('idOeuvre', $idOeuvre)
          ->exists();
          if($oeuvreExists == false) {
-              abort(500, "Oeuvre doesn't exist.");
+              abort(404, "Oeuvre doesn't exist.");
          }
          $avis = DB::table('regarder')
          ->where('idOeuvre', $idOeuvre)
@@ -50,7 +50,7 @@ class RegarderController extends Controller
         ->where('idUtilisateur', $idUtilisateur)
         ->exists();
         if($userExists == false ) {
-            abort(500, "User doesn't exist.");
+            abort(404, "User doesn't exist.");
         }
          $liste = DB::table('regarder')
          ->join('oeuvre', 'oeuvre.idOeuvre', 'regarder.idOeuvre')
@@ -90,7 +90,7 @@ class RegarderController extends Controller
          ->where('idOeuvre', $request->input('idOeuvre'))
          ->exists();
          if($userExists == false || $oeuvreExists == false) {
-              abort(500, "User or oeuvre doesn't exist.");
+              abort(404, "User or oeuvre doesn't exist.");
          }
          $avis = Regarder::create($request->all());
          DB::table('regarder')
@@ -110,7 +110,7 @@ class RegarderController extends Controller
          ->where('idOeuvre', $idOeuvre)
          ->exists();
          if($userExists == false || $oeuvreExists == false) {
-              abort(500, "User or oeuvre doesn't exist.");
+              abort(404, "User or oeuvre doesn't exist.");
          }
          if($request->has('dateVisionnage')) {
                $this->validate($request, ["dateVisionnage" => 'required|date']);
@@ -144,7 +144,7 @@ class RegarderController extends Controller
          ->where('idOeuvre', $idOeuvre)
          ->exists();
          if($userExists == false || $oeuvreExists == false) {
-              abort(500, "User or oeuvre doesn't exist.");
+              abort(404, "User or oeuvre doesn't exist.");
          }
          DB::table('regarder')
          ->where([ ['idUtilisateur', $idUtilisateur], ['idOeuvre', $idOeuvre] ])

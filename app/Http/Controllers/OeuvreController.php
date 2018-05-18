@@ -35,7 +35,7 @@ class OeuvreController extends Controller
          ->where('idOeuvre', $id)
          ->exists();
          if($oeuvreExists == false) {
-              abort(500, "Oeuvre doesn't exist.");
+              abort(404, "Oeuvre doesn't exist.");
          }
          $vues = DB::select("SELECT COUNT(idOeuvre) FROM regarder WHERE idOeuvre = $id");
          return $vues;
@@ -202,7 +202,7 @@ public function recherche(Request $request) {
               ->where('nom', $nomGenre)
               ->value('idGenre');
               if($idGenre == null) {
-                   abort(500, 'Invalid genre name');
+                   abort(400, 'Invalid genre name');
               }
              DB::table('appartenir')
              ->where('idOeuvre', $id)
@@ -216,7 +216,7 @@ public function recherche(Request $request) {
               ->where('nom', $nomPays)
               ->value('idPays');
               if($idPays == null) {
-                     abort(500, 'Invalid country name');
+                     abort(400, 'Invalid country name');
                 }
                 DB::table('origine')
                ->where('idOeuvre', $id)
@@ -236,7 +236,7 @@ public function recherche(Request $request) {
          ->where('nom', $nomGenre)
          ->value('idGenre');
          if($idGenre == null) {
-              abort(500, 'Invalid genre name');
+              abort(400, 'Invalid genre name');
          }
          $rowAppExist = DB::table('appartenir')
          ->where([ ['idOeuvre', $id], ['idGenre', $idGenre]])->exists();
@@ -255,7 +255,7 @@ public function recherche(Request $request) {
          ->where('nom', $nomPays)
          ->value('idPays');
          if($idPays == null) {
-              abort(500, 'Invalid country name');
+              abort(400, 'Invalid country name');
          }
          $rowOriginExist = DB::table('origine')
          ->where([ ['idOeuvre', $id], ['idPays', $idPays] ])->exists();
@@ -275,7 +275,7 @@ public function recherche(Request $request) {
          ->where([ ['nom', $nomActeur], ['prenom', $prenomActeur] ])
          ->value('idCast');
          if($idActeur == null) {
-              abort(500, "Error: cast is invalid or doesn't exist. ");
+              abort(404, "Error: cast is invalid or doesn't exist. ");
          }
          $rowJouerExist = DB::table('jouer')
          ->where([ ['idOeuvre', $id], ['idCast', $idActeur] ])->exists();
@@ -295,7 +295,7 @@ public function recherche(Request $request) {
          ->where([ ['nom', $nomReal], ['prenom', $prenomReal] ])
          ->value('idCast');
          if($idReal == null) {
-              abort(500, "Error: cast is invalid or doesn't exist. ");
+              abort(404, "Error: cast is invalid or doesn't exist. ");
          }
          $rowRealExist = DB::table('realiser')
          ->where([ ['idOeuvre', $id], ['idCast', $idReal] ])->exists();

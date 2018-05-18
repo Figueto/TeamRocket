@@ -70,7 +70,7 @@ class UtilisateurController extends Controller
          if($request->auth->idUtilisateur == 1 || $request->auth->idUtilisateur == 2) {
               //verifier si l'id rentré est le sien
               if($id != $request->auth->idUtilisateur) {
-                   abort(401, "Ce n'est pas votre compte, vous ne pouvez pas le modifier !");
+                   abort(403, "Ce n'est pas votre compte, vous ne pouvez pas le modifier !");
               }
          }
          $utilisateur = Utilisateur::findOrFail($id);
