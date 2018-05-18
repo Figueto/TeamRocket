@@ -55,15 +55,34 @@ class RegarderController extends Controller
          $liste = DB::table('regarder')
          ->join('oeuvre', 'oeuvre.idOeuvre', 'regarder.idOeuvre')
          ->where('regarder.idUtilisateur', $idUtilisateur)
+         ->whereNotNull('dateVisionnage')
          ->orderBy('regarder.dateVisionnage', 'desc')
          ->get();
          return response()->json(["historique"=>$liste], 200);
     }
 
+    //renvoie la liste des oeuvres en cours de l'utilisateur
+    public function getEnCours(Request $request){
+         $idUtilisateur = $request->auth->idUtilisateur;
+         $userExists = DB::table('utilisateur')
+        ->where('idUtilisateur', $idUtilisateur)
+        ->exists();
+        if($userExists == false ) {
+            abort(500, "User doesn't exist.");
+        }
+         $liste = DB::table('regarder')
+         ->join('oeuvre', 'oeuvre.idOeuvre', 'regarder.idOeuvre')
+         ->where('regarder.idUtilisateur', $idUtilisateur)
+         ->WhereNull('dateVisionnage')
+         ->orderBy('regarder.dateVisionnage', 'desc')
+         ->get();
+         return response()->json(["en_cours"=>$liste], 200);
+    }
+
     //cree un nouvel avis
     public function saveAvis(Request $request) {
          $idUtilisateur = $request->auth->idUtilisateur;
-         $this->validate($request, ["idOeuvre" => 'required', "dateVisionnage" => 'required|date']);
+         $this->validate($request, ["idOeuvre" => 'required', "dateVisionnage" => 'date', 'avis' => 'max:280']);
          $userExists = DB::table('utilisateur')
          ->where('idUtilisateur', $idUtilisateur)
          ->exists();

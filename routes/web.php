@@ -84,16 +84,19 @@ $router->get($lienAPI.'log/{id}',  ['as'   => 'log',	'uses' => 'LogController@ge
 /*________REGARDER_________*/
 $router->get($lienAPI.'avis', 'RegarderController@index');
 $router->get($lienAPI.'avis/{idOeuvre}',  ['as'   => 'avis',	'uses' => 'RegarderController@getAvis']);
-$router->get($lienAPI.'historique', 'RegarderController@getHistorique');
 $router->post($lienAPI.'avis', 'RegarderController@saveAvis');
 $router->put($lienAPI.'avis/{idOeuvre}', ['as'   => 'upd-avis',	'uses' => 'RegarderController@updateAvis']);
 $router->delete($lienAPI.'avis/{idOeuvre}', ['as'   => 'del-avis',	'uses' => 'RegarderController@deleteAvis']);
+
+/*________GENERATION LISTE PERSONNELLES D OEUVRE (A voir -- En cours -- Terminés_________*/
+$router->get($lienAPI.'liste_oeuvre/historique', 'RegarderController@getHistorique');
+$router->get($lienAPI.'liste_oeuvre/en_cours', 'RegarderController@getEnCours');
+$router->get($lienAPI.'liste_oeuvre/recommendations', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
 
 /*________OEUVRE_________*/
 $router->get($lienAPI.'oeuvre', 'OeuvreController@index');
 $router->get($lienAPI.'oeuvre/{id}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@getOeuvre']);
 $router->get($lienAPI.'oeuvre/byslug/{slug}',  ['as'   => 'oeuvre',	'uses' => 'OeuvreController@getOeuvreBySlug']);
-$router->get($lienAPI.'recos', ['as'   => 'reco-oeuvre',	'uses' => 'OeuvreController@getRecommendations']);
 $router->get($lienAPI.'search',  ['as'   => 'search',	'uses' => 'OeuvreController@recherche']);
 $router->put($lienAPI.'oeuvre/{id}/genre', ['as'   => 'upd-oeuvre-G',	'uses' => 'OeuvreController@addGenre']);
 $router->put($lienAPI.'oeuvre/{id}/pays', ['as'   => 'upd-oeuvre-P',	'uses' => 'OeuvreController@addPays']);

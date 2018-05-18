@@ -15,7 +15,7 @@ class CreationRegarder extends Migration
     {
         DB::beginTransaction();
         Schema::create('regarder', function (Blueprint $table) {
-            $table->date('dateVisionnage');
+            $table->date('dateVisionnage')->nullable();
             $table->integer('note')->nullable();
             $table->text('avis')->nullable();
             $table->integer('idUtilisateur');

@@ -58,11 +58,11 @@ class Authenticate
         } catch(ExpiredException $e) {
             return response()->json([
                 'error' => 'Provided token is expired.'
-            ], 400);
+            ], 401);
         } catch(Exception $e) {
             return response()->json([
                 'error' => 'An error while decoding token.'
-            ], 400);
+            ], 500);
         }
         if(!$user = Utilisateur::where('actif','=',1)->find($credentials->sub)){
             return response()->json([
