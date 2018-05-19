@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class AjoutSuperAdmin extends Seeder
 {
@@ -15,7 +15,7 @@ class AjoutSuperAdmin extends Seeder
         DB::table('utilisateur')->insert([
             'pseudo' => 'superAdmin',
             'mail' => 'superAdmin@admin.com',
-            'pass' => Crypt::encrypt('admin'),
+            'pass' => Hash::make('admin'),
             'actif' => '1',
             'idNiveau' => '1',
         ]);
