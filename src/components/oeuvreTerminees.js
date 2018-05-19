@@ -1,5 +1,3 @@
-import * as React from 'react';
-import './oeuvre.css'
 import Oeuvre from './oeuvre.js'
 
 

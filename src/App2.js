@@ -1,7 +1,6 @@
 import * as React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import PropTypes from 'prop-types';
+
 
 import Oeuvre from './components/oeuvre.js';
 import OeuvreTerminees from './components/oeuvreTerminees.js';

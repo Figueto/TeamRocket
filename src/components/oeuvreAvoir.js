@@ -1,8 +1,7 @@
-import * as React from 'react';
-import './oeuvre.css'
 import Oeuvre from './oeuvre.js'
 
 export default class OeuvreAvoir extends Oeuvre  {
+
 	constructor (props) {
 		super(props)
 		this.state = {
