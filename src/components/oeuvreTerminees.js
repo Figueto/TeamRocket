@@ -14,13 +14,4 @@ export default class OeuvreTerminees extends Oeuvre  {
 		}
 	}
 
-<<<<<<< HEAD
-=======
-	render() {
-		const {films} = this.state;
-		const  content = super.render();
-	    return content;
-	}
-
->>>>>>> 590d273f95990e1fbad7f4daeaf59143ad6f687f
 }
