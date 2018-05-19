@@ -3,12 +3,6 @@ import './oeuvre.css'
 
 
 export default class Oeuvre extends React.Component {
-	constructor (props) {
-		super(props)
-		this.state = {
-			films: []
-		}
-	}
 
 	render() {
 		const {films} = this.state;
