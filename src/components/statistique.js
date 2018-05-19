@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './statistique.css'
 
 
 export default class Statistique extends React.Component {
@@ -14,8 +15,7 @@ export default class Statistique extends React.Component {
 
 	render() {
 		const {stats} = this.state;
-		const content = <div className="Oeuvre">
-			<h2> Statistiques </h2>
+		const content = <div className="Statistiques">
 			{stats.map(stat => {
 				return <tr key={stat.id}>
 				<div className='stats-wrapper'>
@@ -28,5 +28,5 @@ export default class Statistique extends React.Component {
    		 </div>
 	    return content;
 	}
-	
+
 }
