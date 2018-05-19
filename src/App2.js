@@ -14,19 +14,32 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-      <h1>DashBoard Team Rocket </h1>
+        <h1>DashBoard Team Rocket </h1>
       <SearchBar />
       <div className= "Grille">
         <div className= "Colonne">
-          <h2> Terminés </h2>
-          <OeuvreTerminees />
+          <div className= "ColonneHeader">
+            <h2> Terminés </h2>
+          </div>
+          <div className= "ColonneContent">
+            <OeuvreTerminees/>
+          </div>
         </div>
         <div className= "Colonne">
-          <h2> A voir </h2>
+          <div className= "ColonneHeader">
+            <h2> A voir </h2>
+          </div>
+          <div className= "ColonneContent">
           <OeuvreAvoir />
+          </div>
         </div>
         <div className= "Colonne">
-          <Statistique />
+        <div className= "ColonneHeader">
+          <h2> Statistiques </h2>
+        </div>
+        <div className= "ColonneContent">
+            <Statistique />
+          </div>
         </div>
       </div>
     </div>
