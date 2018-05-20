@@ -3,18 +3,6 @@ import * as React from 'react';
 import Image from './Image.js'
 
 export default class OeuvreTerminees extends Oeuvre  {
-	constructor (props) {
-		super(props)
-		this.state = {
-			films: [
-				{id: 1, titre: 'Titanic', date: '1997', auteur: 'James Cameron', genre: 'Drame', pays: 'USA', resume: 'Un bateau coule'},
-				{id: 2, titre: 'Fast and Furious', date: 'Inconnu', auteur: 'Vin Diesel', genre: 'Vin Diesel', pays: 'USA', resume:'Vin Diesel'},
-				{id: 3, titre: 'jaimelimaclefilm', date: '2018', auteur: 'Venceslas Biri', genre: 'Moijaimebien', pays: 'France', resume:'compilercesttricher'},
-				{id: 4, titre: 'jaimelimaclefilm', date: '2018', auteur: 'Venceslas Biri', genre: 'Moijaimebien', pays: 'France', resume:'compilercesttricher'}
-			],
-			note:5
-		}
-	}
 
 		changeNote() {
 			if(this.state.note==10){
@@ -31,8 +19,9 @@ export default class OeuvreTerminees extends Oeuvre  {
 
 	render() {
 		const {films} = this.state;
+		const filmsVus = films.filter(i => i.vu == true);
 		const  content = <div className='Oeuvre'>
-			{films.map(film => {
+			{filmsVus.map(film => {
 				return <tr key={film.id}>
 				<div className = "oeuvre-wrap">
 				      <h4> {film.titre} </h4>
@@ -49,12 +38,13 @@ export default class OeuvreTerminees extends Oeuvre  {
 								</div>
 				      </div>
 							<div className ='fonctions'>
-							  <p className='note' onClick={this.changeNote.bind(this)}> {this.state.note} </p>
+							  <p className='note' onClick={this.changeNote.bind(this)}> {film.note} </p>
 							</div>
 			    </div>
 			    </tr>
 		 	})}
 	    </div>
+
 	    return content;
 	}
 }
