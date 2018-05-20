@@ -29,8 +29,8 @@ export default class ChartPie extends React.Component {
     <h3>  Genres les plus visionnés </h3>
       <Pie
       data={this.state.chartData2}
-      width={80}
-      height={80}
+      width={60}
+      height={60}
 />
     </div>
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
-
-
+import user from './Logos/user.png'
+import notification from './Logos/notification.png';
 import Oeuvre from './components/oeuvre.js';
 import OeuvreTerminees from './components/oeuvreTerminees.js';
 import OeuvreAvoir from './components/oeuvreAvoir.js';
@@ -10,12 +10,19 @@ import SearchBar from './components/searchbar.js';
 
 
 
+
 class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <h1>DashBoard Team Rocket </h1>
-      <SearchBar />
+      <div className='App'>
+        <div className='Header'>
+            <h1>DashBoard Team Rocket </h1>
+            <SearchBar />
+            <div className='UserInterface'>
+              <img className='User' src={user} alt='Image' width='50' height='50' />
+              <img className='notification' src={notification} alt='Image' width='50' height='50' />
+            </div>
+        </div>
       <div className= "Grille">
         <div className= "Colonne">
           <div className= "ColonneHeader">

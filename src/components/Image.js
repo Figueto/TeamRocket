@@ -10,7 +10,7 @@ constructor(props){
 
   render() {
       	const  content = <div className='image'>
-                  <img src={titanic} alt='Image' width='100' height='150' />
+                  <img src={titanic} alt='Image' width='66' height='100' />
                 </div>
        return content
   }

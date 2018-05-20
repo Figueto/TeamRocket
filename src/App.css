@@ -23,7 +23,7 @@
 .Colonne{
   width: 95%;
   height: 100%;
-  border:5px #3E747F solid;
+  border:5.5px #3E747F solid;
   border-radius:15px;
   background-color: white;
 
@@ -34,25 +34,41 @@
   background-color: white;
   padding bottom:10%;
   overflow: auto;
-  height: 700px;
+  height: 520px;
 }
 
 .ColonneHeader{
     background-color: #3E747F;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     padding-left: 2%;
     padding-right: 2%;
     border-top-left-radius: 2%;
     border-top-right-radius: 2%;
 }
 
-h1{
-    background-color: #153540;
-    color: white;
-    padding: 3%;
+.Header{
+  background-color: #153540;
+  color: white;
+  padding: 0.3%;
+  display:grid;
+  grid-template-columns: 25% 55% 20%;
+  font-size: 12px;
+  margin-bottom: 1.5%;
 }
 
+h1{
+  margin-top: 7%;
+  padding-left: 10%;
+}
+
+.UserInterface{
+  margin-top: 7%;
+}
+
+.User{
+  margin-right: 8%;
+}
 h2{
   color: white;
 }

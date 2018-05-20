@@ -21,8 +21,8 @@ export default class ChartBar extends React.Component {
     <h3> Durée de visionnage </h3>
       <Bar
 	       data={this.state.chartData1}
-	         width={95}
-	         height={300}
+	         width={60}
+	         height={150}
 	         options={{
 		           maintainAspectRatio: false
 	}}
