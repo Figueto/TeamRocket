@@ -1,6 +1,8 @@
 import * as React from 'react';
-import './statistique.css'
-
+import './css/statistique.css'
+import ChartBar from './ChartBar.js'
+import ChartPie from './ChartPie.js'
+import ChartLine from './ChartLine.js'
 
 export default class Statistique extends React.Component {
 
@@ -29,13 +31,18 @@ export default class Statistique extends React.Component {
 	render() {
 		const {stats} = this.state;
 
-		const content = <div className="Oeuvre">
-			<h2> Statistiques </h2>
+		const content = <div className="infosStats">
 				<div className='stats-wrapper'>
+							<h2> Général </h2>
 	      			<p className='Categorie'> Votre catégorie préférée est : {this.state.categorie} </p>
 	      			<p className='temps'> Vous avez regardé des films pendant {this.state.temps} heures </p>
-	     			<p className='note' onClick={this.changeNote.bind(this)}> Votre note moyenne est : {this.state.note} </p>
+	     			  <p className='note' onClick={this.changeNote.bind(this)}> Votre note moyenne est : {this.state.note} </p>
      			</div>
+					<div className='charts'>
+							<ChartBar />
+							<ChartPie />
+							<ChartLine />
+					</div>
    		 </div>
 	    return content;
 	}

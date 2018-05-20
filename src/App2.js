@@ -9,6 +9,7 @@ import Statistique from './components/statistique.js';
 import SearchBar from './components/searchbar.js';
 
 
+
 class App extends React.Component {
   render() {
     return (
@@ -41,6 +42,9 @@ class App extends React.Component {
           </div>
         </div>
       </div>
+      <div className="Footer">
+        <p className= "NomSite"> @Site Dashboard Team Rocket Web Imac 2018 </p>
+     </div>
     </div>
     );
   }

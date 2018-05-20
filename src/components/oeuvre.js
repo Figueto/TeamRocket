@@ -1,5 +1,7 @@
 import * as React from 'react';
-import './oeuvre.css'
+import './css/oeuvre.css'
+import Image from './Image.js'
+
 
 
 export default class Oeuvre extends React.Component {
@@ -13,10 +15,15 @@ export default class Oeuvre extends React.Component {
 				      <h4> {film.titre} </h4>
 				      <p className='Date'> {film.date} </p>
 				      <div className = 'InfosOeuvre'>
-					      <p className = 'Auteur'> Auteur : {film.auteur} </p>
-					      <p className = 'Genre'>  Genre : {film.genre} </p>
-					      <p className = 'Pays'> Origine :{film.pays} </p>
-					      <p className = 'Resume'> Resume : {film.resume} </p>
+								<div className = 'InfosTexte'>
+					      	<p className = 'Auteur'> Auteur : {film.auteur} </p>
+					      	<p className = 'Genre'>  Genre : {film.genre} </p>
+					      	<p className = 'Pays'> Origine :{film.pays} </p>
+					      	<p className = 'Resume'> Resume : {film.resume} </p>
+								</div>
+								<div className ='InfosImage'>
+									<Image/>
+								</div>
 				      </div>
 			    </div>
 			    </tr>

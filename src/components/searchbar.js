@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './searchbar.css'
+import './css/searchbar.css'
 
 
 export default class SearchBar extends React.Component {
@@ -13,5 +13,5 @@ export default class SearchBar extends React.Component {
     	</div>
 	    return content;
 	}
-	
+
 }

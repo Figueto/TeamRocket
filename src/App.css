@@ -14,8 +14,9 @@
 
 .Grille{
   display:grid;
-  grid-template-columns: 33% 33% 33%;
   grid-template-columns: repeat(3, 1fr);
+  margin-left: 7%;
+  margin-right: 7%;
 
 }
 
@@ -24,7 +25,6 @@
   height: 100%;
   border:5px #3E747F solid;
   border-radius:15px;
-  margin: 2px;
   background-color: white;
 
 }
@@ -41,14 +41,16 @@
     background-color: #3E747F;
     padding-top: 2%;
     padding-bottom: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
     border-top-left-radius: 2%;
     border-top-right-radius: 2%;
 }
 
 h1{
     background-color: #153540;
-    padding: 3%;
     color: white;
+    padding: 3%;
 }
 
 h2{
@@ -58,7 +60,6 @@ h2{
 
 .Grille ::-webkit-scrollbar {
     width: 15px;
-    padding-right: 1%;
 }
 
 .Grille ::-webkit-scrollbar-track {
@@ -83,5 +84,18 @@ h2{
 }
 
 .App{
-  background-color: rgba(62,116,127,.05);
+  background-color: rgba(62,116,127,.1);
+}
+
+.Footer{
+  margin-top: 4%;
+  Padding-top: 7%;
+  padding-bottom: 0.5%;
+  background-color: #153540;
+  color: white;
+}
+
+.NomSite{
+  padding-right: 3%;
+  text-align: right;
 }
