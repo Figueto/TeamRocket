@@ -4,6 +4,10 @@ import './css/Image.css'
 
 export default class Image extends React.Component {
 
+constructor(props){
+    super(props);
+}
+
   render() {
       	const  content = <div className='image'>
                   <img src={titanic} alt='Image' width='100' height='150' />

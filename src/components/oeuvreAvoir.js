@@ -1,4 +1,6 @@
 import Oeuvre from './oeuvre.js'
+import * as React from 'react';
+import Image from './Image.js'
 
 export default class OeuvreAvoir extends Oeuvre  {
 
@@ -13,4 +15,6 @@ export default class OeuvreAvoir extends Oeuvre  {
 			]
 		}
 	}
+
+	
 }

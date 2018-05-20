@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './css/oeuvre.css'
 import Image from './Image.js'
+import Bouton from './Bouton.js'
 
 
 
@@ -25,6 +26,9 @@ export default class Oeuvre extends React.Component {
 									<Image/>
 								</div>
 				      </div>
+							<div className ='Boutons'>
+							<Bouton/>
+							</div>
 			    </div>
 			    </tr>
 		 	})}
