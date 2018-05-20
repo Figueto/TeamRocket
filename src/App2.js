@@ -7,6 +7,7 @@ import OeuvreTerminees from './components/oeuvreTerminees.js';
 import OeuvreAvoir from './components/oeuvreAvoir.js';
 import Statistique from './components/statistique.js';
 import SearchBar from './components/searchbar.js';
+import Selecteur from './components/Selecteur.js';
 
 
 
@@ -28,6 +29,7 @@ class App extends React.Component {
           <div className= "ColonneHeader">
             <h2> Terminés </h2>
           </div>
+          <Selecteur/>
           <div className= "ColonneContent">
             <OeuvreTerminees/>
           </div>
@@ -36,6 +38,7 @@ class App extends React.Component {
           <div className= "ColonneHeader">
             <h2> A voir </h2>
           </div>
+          <Selecteur/>
           <div className= "ColonneContent">
           <OeuvreAvoir />
           </div>

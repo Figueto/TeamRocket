@@ -1,0 +1,31 @@
+.Selecteur{
+    color:white;
+    display: grid;
+    color:#3E747F;
+    grid-template-columns: 35px 70px 70px 70px 70px;
+    padding-left: 15%;
+    padding-right: 15%;
+    background-color: white;
+    border-bottom:3px #3E747F solid;
+    font-size: 13px;
+}
+
+.Genre:hover{
+  color: #FF9654;
+  cursor:pointer;
+}
+
+.Media:hover{
+  color: #FF9654;
+  cursor:pointer;
+}
+
+.DatePlus:hover{
+  color: #FF9654;
+  cursor:pointer;
+}
+
+.DateMoins:hover{  
+  color: #FF9654;
+  cursor:pointer;
+}
