@@ -23,4 +23,24 @@ export default class Oeuvre extends React.Component {
 		}
 	}
 
+	render(){
+		const content = <div>
+							<h4> {this.props.film.titre} </h4>
+				     		<p className='Date'> {this.props.film.date} </p>
+				      		<div className = 'InfosOeuvre'>
+								<div className = 'InfosTexte'>
+						      		<p className = 'Auteur'> Auteur : {this.props.film.auteur} </p>
+						      		<p className = 'Genre'>  Genre : {this.props.film.genre} </p>
+						      		<p className = 'Pays'> Origine :{this.props.film.pays} </p>
+						      		<p className = 'Resume'> Resume : {this.props.film.resume} </p>
+								</div>
+								<div className ='InfosImage'>
+									<Image/>
+								</div>
+							</div>
+				      </div>
+	return content;
+	}
+
+
 }
