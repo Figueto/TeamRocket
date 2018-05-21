@@ -26,7 +26,7 @@ export default class OeuvreTerminees extends Oeuvre  {
 				<div className = "oeuvre-wrap">
 				      <Oeuvre film={film} />
 							<div className ='fonctions'>
-							  <p className='note' onClick={this.changeNote.bind(this)}> {film.note} </p>
+							  <p className='note' onClick={this.changeNote.bind(this)}> {this.state.note} </p>
 							</div>
 			    </div>
 			    </tr>
