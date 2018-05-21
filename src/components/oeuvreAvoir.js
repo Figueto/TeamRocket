@@ -6,7 +6,7 @@ import Bouton from './Bouton.js'
 export default class OeuvreAvoir extends Oeuvre  {
 
 	changeViewed() {
-		super.setState({
+		this.films.setState({
 	    	vu: true
 	  	})
 	}
